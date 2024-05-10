@@ -31,14 +31,16 @@ export default function Template({ children }: { children: React.ReactNode }) {
           `}
         >
           <SideNavGroup
+            collapsible
             header="Foundations"
             glyph={<UniversityIcon />}
           ></SideNavGroup>
           <SideNavGroup
+            collapsible
             header="Resources"
             glyph={<GovernmentBuildingIcon />}
           ></SideNavGroup>
-          <SideNavGroup header="components" glyph={<AppsIcon />}>
+          <SideNavGroup collapsible header="components" glyph={<AppsIcon />}>
             {Object.keys(groupedComponents).map((groupName) => (
               <SideNavGroup
                 key={groupName}

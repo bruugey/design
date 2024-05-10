@@ -17,10 +17,16 @@ export default function ComponentLayout({
   const currentComponent = pathname.split("/")[1];
 
   return (
-    <div>
+    <div
+      className={css`
+        margin-left: ${spacing[800]}px;
+        margin-right: ${spacing[1200]}px;
+      `}
+    >
       <H2
         className={css`
           text-transform: capitalize;
+          margin-bottom: ${spacing[600]}px;
         `}
       >
         {currentComponent.split("-").join(" ")}

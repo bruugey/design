@@ -10,15 +10,31 @@ import getTsDocFromServer from "./server";
 
 /*
  * TODO:
- * Fix type errors
- * Format page
  * Broken components:
- * Table: empty states
+ * Table: Empty States
  * SideNav: Item props don't render
+ * Understand null defaults (and fix)
  * Document "rest"
  */
 
-function mergeProps(componentProps: Record<string, any>) {
+interface TSDocResponse {
+  description: string;
+  displayName: string;
+  methods: Array<any>;
+  props: Record<string, any>;
+  tags: Record<string, any>;
+}
+
+interface PropTableState {
+  name: string;
+  props: TSDocResponse["props"];
+}
+
+function mergeProps(componentProps: TSDocResponse["props"] | undefined) {
+  if (!componentProps) {
+    return {};
+  }
+
   let mergedProps = {};
 
   Object.keys(componentProps).forEach((key) => {
@@ -31,11 +47,13 @@ function mergeProps(componentProps: Record<string, any>) {
 }
 
 export default function Page({ params }: { params: { component: string } }) {
-  const [componentProps, setComponentProps] = useState<Array<any>>([]);
+  const [componentProps, setComponentProps] = useState<Array<PropTableState>>(
+    []
+  );
 
   useEffect(() => {
     const component = params.component;
-    getTsDocFromServer(component).then((response) => {
+    getTsDocFromServer(component).then((response: Array<TSDocResponse>) => {
       const subComponents = components.find(
         (componentMeta) =>
           componentMeta.name.toLowerCase().replace(/\s/g, "") ===
@@ -43,14 +61,18 @@ export default function Page({ params }: { params: { component: string } }) {
       )?.subComponents;
 
       if (!!subComponents) {
+        console.log(response);
         const propTables = response.filter((response) =>
           subComponents.includes(response.displayName)
         );
 
-        const reducedPropTables = propTables.reduce((acc, value) => {
-          const mergedProps = mergeProps(value.props);
-          return [...acc, { name: value.displayName, props: mergedProps }];
-        }, []);
+        const reducedPropTables: Array<PropTableState> = propTables.reduce(
+          (acc: Array<PropTableState>, value: TSDocResponse) => {
+            const mergedProps = mergeProps(value.props);
+            return [...acc, { name: value.displayName, props: mergedProps }];
+          },
+          []
+        );
 
         setComponentProps(reducedPropTables);
       } else {
@@ -60,7 +82,7 @@ export default function Page({ params }: { params: { component: string } }) {
             .replace(/\s/g, "")
             .includes(component.toLowerCase().split("-").join(""));
         });
-        const mergedProps = mergeProps(centralProps.props);
+        const mergedProps = mergeProps(centralProps?.props);
         setComponentProps([{ name: component, props: mergedProps }]);
       }
     });
@@ -76,8 +98,9 @@ export default function Page({ params }: { params: { component: string } }) {
     >
       <div
         className={css`
-          display: flex;
-          gap: ${spacing[400]}px;
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: ${spacing[800]}px;
         `}
       >
         <InstallCard component={params.component} />
