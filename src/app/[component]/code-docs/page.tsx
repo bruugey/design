@@ -3,37 +3,16 @@
 import { useEffect, useState } from "react";
 
 import { css } from "@emotion/css";
-import Card from "@leafygreen-ui/card";
-import {
-  Table,
-  TableHead,
-  HeaderRow,
-  HeaderCell,
-  TableBody,
-  Row,
-  Cell,
-} from "@leafygreen-ui/table";
-import { InlineCode } from "@leafygreen-ui/typography";
+
+import { spacing } from "@leafygreen-ui/tokens";
 
 import server from "./server";
 
-const columns = ["name", "default", "description", "type"];
-
-function formatType(type: { raw?: string; name?: string; value?: any }) {
-  if (!type) {
-    return;
-  }
-
-  if (type.raw === "boolean" || type.raw === "ReactNode") {
-    return type.raw;
-  }
-
-  if (type.value && Array.isArray(type.value)) {
-    return type.value.map((obj) => obj.value).join(", ");
-  }
-
-  return type.name;
-}
+import {
+  InstallCard,
+  PropsTable,
+  VersionCard,
+} from "../../../components/code-docs";
 
 export default function Page({ params }: { params: { component: string } }) {
   const [props, setProps] = useState<any>();
@@ -53,56 +32,24 @@ export default function Page({ params }: { params: { component: string } }) {
   }, []);
 
   return (
-    <Card>
-      {props && (
-        <Table darkMode>
-          <TableHead>
-            <HeaderRow>
-              {columns.map((columnName: string) => (
-                <HeaderCell
-                  key={columnName}
-                  className={css`
-                    text-transform: capitalize;
-                  `}
-                >
-                  {columnName}
-                </HeaderCell>
-              ))}
-            </HeaderRow>
-          </TableHead>
-          <TableBody>
-            {Object.keys(props)
-              .sort()
-              .map((row) => {
-                return (
-                  <Row>
-                    <Cell>
-                      <>
-                        {props[row].name}
-                        <span
-                          className={css`
-                            color: red;
-                          `}
-                        >
-                          {props[row].required ? "*" : ""}
-                        </span>
-                      </>
-                    </Cell>
-                    <Cell>
-                      <InlineCode>
-                        {props[row].defaultValue?.value ?? `'-'`}
-                      </InlineCode>
-                    </Cell>
-                    <Cell>{props[row].description}</Cell>
-                    <Cell>
-                      <InlineCode>{formatType(props[row].type)}</InlineCode>
-                    </Cell>
-                  </Row>
-                );
-              })}
-          </TableBody>
-        </Table>
-      )}
-    </Card>
+    <div
+      className={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${spacing[800]}px;
+      `}
+    >
+      <div
+        className={css`
+          display: flex;
+          gap: ${spacing[400]}px;
+        `}
+      >
+        <InstallCard component={params.component} />
+        <VersionCard />
+      </div>
+
+      <PropsTable componentProps={props} />
+    </div>
   );
 }
