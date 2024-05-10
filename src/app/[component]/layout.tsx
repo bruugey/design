@@ -23,7 +23,7 @@ export default function ComponentLayout({
           text-transform: capitalize;
         `}
       >
-        {currentComponent}
+        {currentComponent.split("-").join(" ")}
       </H2>
       <Tabs
         aria-label="main tabs"

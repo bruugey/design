@@ -6,10 +6,12 @@ import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import { spacing } from "@leafygreen-ui/tokens";
 import { useRouter } from "next/navigation";
 
-import { components } from "../utils/components";
+import { groupedComponents } from "@/utils/components";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+
+  console.log(groupedComponents);
 
   return (
     <LeafyGreenProvider darkMode>
@@ -23,13 +25,19 @@ export default function Template({ children }: { children: React.ReactNode }) {
           `}
         >
           <SideNavGroup header="components">
-            {components.map((component) => (
-              <SideNavItem
-                key={component.name}
-                onClick={() => router.push(component.navPath)}
-              >
-                {component.name}
-              </SideNavItem>
+            {Object.keys(groupedComponents).map((groupName) => (
+              <SideNavGroup header={groupName.split("-").join(" ")}>
+                {groupedComponents?.[groupName]?.map((component) => {
+                  return (
+                    <SideNavItem
+                      key={component.name}
+                      onClick={() => router.push(component.navPath)}
+                    >
+                      {component.name}
+                    </SideNavItem>
+                  );
+                })}
+              </SideNavGroup>
             ))}
           </SideNavGroup>
         </SideNav>
