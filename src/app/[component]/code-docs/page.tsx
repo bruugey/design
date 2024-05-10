@@ -1,18 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { css } from "@emotion/css";
-
 import { spacing } from "@leafygreen-ui/tokens";
+import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 
 import server from "./server";
-
-import {
-  InstallCard,
-  PropsTable,
-  VersionCard,
-} from "../../../components/code-docs";
 
 export default function Page({ params }: { params: { component: string } }) {
   const [props, setProps] = useState<any>();

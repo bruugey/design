@@ -1,11 +1,11 @@
 "use client";
 
+import React from "react";
 import { css } from "@emotion/css";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 import { spacing } from "@leafygreen-ui/tokens";
 import { H2 } from "@leafygreen-ui/typography";
 import { useRouter, usePathname } from "next/navigation";
-import React from "react";
 
 export default function ComponentLayout({
   children,
