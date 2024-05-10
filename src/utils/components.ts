@@ -38,7 +38,7 @@ export const components = [
   {
     name: "Chip",
     navPath: "/chip/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Code",
@@ -93,17 +93,17 @@ export const components = [
   {
     name: "Info Sprinkle",
     navPath: "/info-sprinkle/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Inline Definition",
     navPath: "/inline-definition/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Loading Indicator",
     navPath: "/loading-indicator/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Logo",
@@ -133,7 +133,7 @@ export const components = [
   {
     name: "Pagination",
     navPath: "/pagination/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Password Input",
@@ -183,7 +183,7 @@ export const components = [
   {
     name: "Skeleton Loader",
     navPath: "/skeleton-loader/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Split Button",

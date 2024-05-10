@@ -56,7 +56,7 @@ export const PropsTable = ({ componentProps }: { componentProps: any }) => {
               .sort()
               .map((row) => {
                 return (
-                  <Row>
+                  <Row key={componentProps[row].name}>
                     <Cell>
                       <>
                         {componentProps[row].name}

@@ -40,7 +40,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
           ></SideNavGroup>
           <SideNavGroup header="components" glyph={<AppsIcon />}>
             {Object.keys(groupedComponents).map((groupName) => (
-              <SideNavGroup header={groupName.split("-").join(" ")}>
+              <SideNavGroup
+                key={groupName}
+                header={groupName.split("-").join(" ")}
+              >
                 {groupedComponents[groupName as Group].map(
                   (component: ComponentMeta) => {
                     return (
