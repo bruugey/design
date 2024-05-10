@@ -110,6 +110,7 @@ export const components: Array<{
     name: "Loading Indicator",
     navPath: "/loading-indicator/live-example",
     group: Group.Display,
+    subComponents: ["Spinner", "PageLoader"],
   },
   {
     name: "Logo",
@@ -197,6 +198,12 @@ export const components: Array<{
     name: "Skeleton Loader",
     navPath: "/skeleton-loader/live-example",
     group: Group.Display,
+    subComponents: [
+      "ParagraphSkeleton",
+      "FormSkeleton",
+      "TableSkeleton",
+      "CardSkeleton",
+    ],
   },
   {
     name: "Split Button",

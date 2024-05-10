@@ -13,9 +13,9 @@ import getTsDocFromServer from "./server";
  * Fix type errors
  * Format page
  * Broken components:
- * Loading Indicator: line 61
- * Skeleton Loader: line 61
  * Table: empty states
+ * SideNav: Item props don't render
+ * Document "rest"
  */
 
 function mergeProps(componentProps: Record<string, any>) {
