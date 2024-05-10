@@ -12,7 +12,12 @@ type Group = (typeof Group)[keyof typeof Group];
 
 export { Group };
 
-export const components = [
+export const components: Array<{
+  name: string;
+  navPath: string;
+  group: Group;
+  subComponents?: Array<string>;
+}> = [
   { name: "Badge", navPath: "/badge/live-example", group: Group.Notifications },
   {
     name: "Banner",
@@ -49,6 +54,7 @@ export const components = [
     name: "Combobox",
     navPath: "/combobox/live-example",
     group: Group.FormElements,
+    subComponents: ["Combobox", "ComboboxOption", "ComboboxGroup"],
   },
   {
     name: "Confirmation Modal",
@@ -87,7 +93,7 @@ export const components = [
   },
   {
     name: "Icon Button",
-    navPath: "/icon/live-example",
+    navPath: "/icon-button/live-example",
     group: Group.FormElements,
   },
   {
@@ -119,6 +125,7 @@ export const components = [
     name: "Menu",
     navPath: "/menu/live-example",
     group: Group.Navigation,
+    subComponents: ["Menu", "MenuItem", "SubMenu"],
   },
   {
     name: "Modal",
@@ -144,6 +151,7 @@ export const components = [
     name: "Pipeline",
     navPath: "/pipeline/live-example",
     group: Group.Display,
+    subComponents: ["Pipeline", "Stage"],
   },
   {
     name: "Popover",
@@ -154,11 +162,13 @@ export const components = [
     name: "Radio Box Group",
     navPath: "/radio-box-group/live-example",
     group: Group.FormElements,
+    subComponents: ["RadioBoxGroup", "RadioBox"],
   },
   {
     name: "Radio Group",
     navPath: "/radio-group/live-example",
     group: Group.FormElements,
+    subComponents: ["RadioGroup", "Radio"],
   },
   {
     name: "Search Input",
@@ -169,16 +179,19 @@ export const components = [
     name: "Segmented Control",
     navPath: "/segmented-control/live-example",
     group: Group.Display,
+    subComponents: ["SegmentedControl", "SegmentedControlOption"],
   },
   {
     name: "Select",
     navPath: "/select/live-example",
     group: Group.FormElements,
+    subComponents: ["Select", "Option", "OptionGroup"],
   },
   {
     name: "Side Nav",
     navPath: "/side-nav/live-example",
     group: Group.Navigation,
+    subComponents: ["SideNav", "SideNavItem", "SideNavGroup"],
   },
   {
     name: "Skeleton Loader",
@@ -194,16 +207,26 @@ export const components = [
     name: "Stepper",
     navPath: "/stepper/live-example",
     group: Group.Misc,
+    subComponents: ["Stepper", "Step"],
   },
   {
     name: "Table",
     navPath: "/table/live-example",
     group: Group.Display,
+    subComponents: [
+      "Table",
+      "TableHead",
+      "HeaderRow",
+      "TableBody",
+      "Row",
+      "Cell",
+    ],
   },
   {
     name: "Tabs",
     navPath: "/tabs/live-example",
     group: Group.Navigation,
+    subComponents: ["Tabs", "Tab"],
   },
   {
     name: "Text Area",
@@ -230,7 +253,7 @@ export const components = [
     navPath: "/tooltip/live-example",
     group: Group.Notifications,
   },
-] as const;
+];
 
 export type ComponentMeta = { name: string; navPath: string };
 

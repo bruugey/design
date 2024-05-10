@@ -2,7 +2,7 @@
 
 import React from "react";
 import { css } from "@emotion/css";
-import Card from "@leafygreen-ui/card";
+import ExpandableCard from "@leafygreen-ui/expandable-card";
 import {
   Table,
   TableHead,
@@ -12,7 +12,9 @@ import {
   Row,
   Cell,
 } from "@leafygreen-ui/table";
-import { InlineCode } from "@leafygreen-ui/typography";
+import { InlineCode, Subtitle } from "@leafygreen-ui/typography";
+
+// TODO: Add empty state
 
 const columns = ["name", "default", "description", "type"];
 
@@ -32,11 +34,28 @@ function formatType(type: { raw?: string; name?: string; value?: any }) {
   return type.name;
 }
 
-export const PropsTable = ({ componentProps }: { componentProps: any }) => {
+export const PropsTable = ({
+  componentProps,
+  name,
+}: {
+  componentProps: any;
+  name: string;
+}) => {
   return (
-    <Card>
+    <ExpandableCard
+      defaultOpen
+      title={
+        <div
+          className={css`
+            text-transform: capitalize;
+          `}
+        >
+          {name.split("-").join(" ")} Props
+        </div>
+      }
+    >
       {componentProps && (
-        <Table darkMode>
+        <Table darkMode shouldAlternateRowColor>
           <TableHead>
             <HeaderRow>
               {columns.map((columnName: string) => (
@@ -86,6 +105,6 @@ export const PropsTable = ({ componentProps }: { componentProps: any }) => {
           </TableBody>
         </Table>
       )}
-    </Card>
+    </ExpandableCard>
   );
 };
