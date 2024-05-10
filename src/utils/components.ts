@@ -232,6 +232,8 @@ export const components = [
   },
 ] as const;
 
+export type ComponentMeta = { name: string; navPath: string };
+
 export const groupedComponents = components.reduce((acc, obj) => {
   const { group, name, navPath } = obj;
   if (!acc[group]) {
@@ -241,4 +243,4 @@ export const groupedComponents = components.reduce((acc, obj) => {
   // Sort the array by component value
   acc[group].sort((a, b) => a.name.localeCompare(b.name));
   return acc;
-}, {} as Record<Group, { name: string; navPath: string }[]>);
+}, {} as Record<Group, ComponentMeta[]>);
