@@ -2,6 +2,6 @@
 
 import { getTSDoc } from "@/utils/getTsDoc";
 
-export default async function server(component: string) {
+export default async function getTsDocFromServer(component: string) {
   return await getTSDoc(component);
 }

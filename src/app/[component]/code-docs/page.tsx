@@ -5,14 +5,14 @@ import { css } from "@emotion/css";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 
-import server from "./server";
+import getTsDocFromServer from "./server";
 
 export default function Page({ params }: { params: { component: string } }) {
-  const [props, setProps] = useState<any>();
+  const [componentProps, setComponentProps] = useState<any>();
 
   useEffect(() => {
     const component = params.component;
-    server(component).then((response) => {
+    getTsDocFromServer(component).then((response) => {
       const allProps = response[0].props;
       let mergedProps = {};
       Object.keys(allProps).forEach((key) => {
@@ -20,7 +20,7 @@ export default function Page({ params }: { params: { component: string } }) {
           mergedProps = { ...mergedProps, ...allProps[key] };
         }
       });
-      setProps(mergedProps);
+      setComponentProps(mergedProps);
     });
   }, []);
 
@@ -39,10 +39,10 @@ export default function Page({ params }: { params: { component: string } }) {
         `}
       >
         <InstallCard component={params.component} />
-        <VersionCard />
+        <VersionCard component={params.component} />
       </div>
 
-      <PropsTable componentProps={props} />
+      <PropsTable componentProps={componentProps} />
     </div>
   );
 }

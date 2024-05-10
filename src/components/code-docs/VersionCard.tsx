@@ -1,15 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 // @ts-expect-error
 import ActivityFeed from "@leafygreen-ui/icon/dist/ActivityFeed";
+import Modal from "@leafygreen-ui/modal";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { color } from "@leafygreen-ui/tokens";
+import { getChangelogFromServer } from "./server";
 
-export const VersionCard = () => {
+export const VersionCard = ({ component }: { component: string }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [changelog, setChangelog] = useState<string | null>(null);
+  const [version, setVersion] = useState<string | null>(null);
+
+  useEffect(() => {
+    getChangelogFromServer(component).then((response) =>
+      setChangelog(response)
+    );
+  }, []);
+
+  useEffect(() => {
+    setVersion(changelog?.split("h2")[1]?.replace(/[>/<]+/g, "") ?? null);
+  }, [changelog]);
+
   return (
     <Card>
       <Subtitle
@@ -17,9 +34,29 @@ export const VersionCard = () => {
           margin-bottom: ${spacing[400]}px;
         `}
       >
-        Version
+        Version {version}
       </Subtitle>
-      <Button leftGlyph={<ActivityFeed />}>View Changelog</Button>
+      {changelog && (
+        <>
+          <Button
+            leftGlyph={<ActivityFeed />}
+            onClick={() => setIsModalOpen(true)}
+          >
+            View Changelog
+          </Button>
+          <Modal open={isModalOpen} setOpen={setIsModalOpen}>
+            <div
+              className={css`
+                & a {
+                  color: ${color.dark.text.primary
+                    .focus}; // TODO: change when we publish link colors
+                }
+              `}
+              dangerouslySetInnerHTML={{ __html: changelog }}
+            />
+          </Modal>
+        </>
+      )}
     </Card>
   );
 };
