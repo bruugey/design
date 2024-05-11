@@ -55,7 +55,7 @@ export const PropsTable = ({
       }
     >
       {componentProps && (
-        <Table darkMode shouldAlternateRowColor>
+        <Table shouldAlternateRowColor>
           <TableHead>
             <HeaderRow>
               {columns.map((columnName: string) => (

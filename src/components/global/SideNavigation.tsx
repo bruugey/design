@@ -9,6 +9,7 @@ import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
 // @ts-expect-error
 import UniversityIcon from "@leafygreen-ui/icon/dist/University";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
@@ -17,14 +18,16 @@ export function SideNavigation() {
   const router = useRouter();
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[1];
+  const { darkMode } = useDarkMode();
 
   return (
     <SideNav
+      darkMode={darkMode}
       aria-label="Side Navigation"
       className={css`
         height: 100%;
         position: fixed;
-        z-index: 1;
+        z-index: 0;
       `}
     >
       <SideNavGroup
