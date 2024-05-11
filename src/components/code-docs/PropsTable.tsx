@@ -12,35 +12,15 @@ import {
   Row,
   Cell,
 } from "@leafygreen-ui/table";
-import { InlineCode, Subtitle } from "@leafygreen-ui/typography";
+import { InlineCode, Link } from "@leafygreen-ui/typography";
 
-// TODO: Add empty state
+import { getHTMLAttributesLink, formatType } from "./utils";
 
-const columns = ["name", "default", "description", "type"];
+const COLUMNS = ["name", "default", "description", "type"];
 
-function formatType(type: { raw?: string; name?: string; value?: any }) {
-  if (!type) {
-    return;
-  }
+export const PropsTable = ({ componentProps: props, name }: any) => {
+  const { componentProps, inheritedProps } = props;
 
-  if (type.raw === "boolean" || type.raw === "ReactNode") {
-    return type.raw;
-  }
-
-  if (type.value && Array.isArray(type.value)) {
-    return type.value.map((obj) => obj.value).join(", ");
-  }
-
-  return type.name;
-}
-
-export const PropsTable = ({
-  componentProps,
-  name,
-}: {
-  componentProps: any;
-  name: string;
-}) => {
   return (
     <ExpandableCard
       defaultOpen
@@ -54,57 +34,78 @@ export const PropsTable = ({
         </div>
       }
     >
-      {componentProps && (
-        <Table shouldAlternateRowColor>
-          <TableHead>
-            <HeaderRow>
-              {columns.map((columnName: string) => (
-                <HeaderCell
-                  key={columnName}
-                  className={css`
-                    text-transform: capitalize;
-                  `}
-                >
-                  {columnName}
-                </HeaderCell>
-              ))}
-            </HeaderRow>
-          </TableHead>
-          <TableBody>
-            {Object.keys(componentProps)
-              .sort()
-              .map((row) => {
-                return (
-                  <Row key={componentProps[row].name}>
-                    <Cell>
-                      <>
-                        {componentProps[row].name}
-                        <span
-                          className={css`
-                            color: red;
-                          `}
-                        >
-                          {componentProps[row].required ? "*" : ""}
-                        </span>
-                      </>
-                    </Cell>
-                    <Cell>
-                      <InlineCode>
-                        {componentProps[row].defaultValue?.value ?? `'-'`}
-                      </InlineCode>
-                    </Cell>
-                    <Cell>{componentProps[row].description}</Cell>
-                    <Cell>
-                      <InlineCode>
-                        {formatType(componentProps[row].type)}
-                      </InlineCode>
-                    </Cell>
-                  </Row>
-                );
-              })}
-          </TableBody>
-        </Table>
-      )}
+      <Table shouldAlternateRowColor>
+        <TableHead>
+          <HeaderRow>
+            {COLUMNS.map((columnName: string) => (
+              <HeaderCell
+                key={columnName}
+                className={css`
+                  text-transform: capitalize;
+                `}
+              >
+                {columnName}
+              </HeaderCell>
+            ))}
+          </HeaderRow>
+        </TableHead>
+        <TableBody>
+          {Object.keys(componentProps)
+            .sort()
+            .map((row: string) => {
+              const {
+                name,
+                required,
+                defaultValue = false,
+                description,
+                type,
+              } = componentProps[row];
+              return (
+                <Row key={name}>
+                  <Cell>
+                    <>
+                      <InlineCode>{name}</InlineCode>
+                      <span
+                        className={css`
+                          color: red;
+                        `}
+                      >
+                        {required ? "*" : ""}
+                      </span>
+                    </>
+                  </Cell>
+                  <Cell>
+                    <InlineCode>{defaultValue?.value ?? `'-'`}</InlineCode>
+                  </Cell>
+                  <Cell>{description}</Cell>
+                  <Cell>
+                    <InlineCode>{formatType(type)}</InlineCode>
+                  </Cell>
+                </Row>
+              );
+            })}
+          {inheritedProps && (
+            <Row key="restProps">
+              <Cell>
+                <InlineCode>...rest</InlineCode>
+              </Cell>
+
+              <Cell colSpan={3}>
+                Native attributes inherited from &nbsp;
+                {inheritedProps.map(({ groupName }) => (
+                  <Link
+                    key={groupName}
+                    target="_blank"
+                    href={getHTMLAttributesLink(groupName)}
+                  >
+                    <InlineCode>{groupName}</InlineCode>
+                  </Link>
+                ))}
+              </Cell>
+            </Row>
+          )}
+        </TableBody>
+      </Table>
     </ExpandableCard>
   );
 };

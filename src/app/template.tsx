@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { css } from "@emotion/css";
-import IconButton from "@leafygreen-ui/icon-button";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
 

@@ -1,50 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { pickBy } from "lodash";
 import { css } from "@emotion/css";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 import { components } from "@/utils/components";
+import {
+  TSDocResponse,
+  PropTableState,
+  mergeProps,
+} from "@/components/code-docs";
 
 import getTsDocFromServer from "./server";
 
 /*
  * TODO:
  * Broken components:
- * Table: Empty States
  * SideNav: Item props don't render
  * Understand null defaults (and fix)
- * Document "rest"
  */
-
-interface TSDocResponse {
-  description: string;
-  displayName: string;
-  methods: Array<any>;
-  props: Record<string, any>;
-  tags: Record<string, any>;
-}
-
-interface PropTableState {
-  name: string;
-  props: TSDocResponse["props"];
-}
-
-function mergeProps(componentProps: TSDocResponse["props"] | undefined) {
-  if (!componentProps) {
-    return {};
-  }
-
-  let mergedProps = {};
-
-  Object.keys(componentProps).forEach((key) => {
-    if (typeof componentProps[key] === "object") {
-      mergedProps = { ...mergedProps, ...componentProps[key] };
-    }
-  });
-
-  return mergedProps;
-}
 
 export default function Page({ params }: { params: { component: string } }) {
   const [componentProps, setComponentProps] = useState<Array<PropTableState>>(
@@ -61,7 +36,6 @@ export default function Page({ params }: { params: { component: string } }) {
       )?.subComponents;
 
       if (!!subComponents) {
-        console.log(response);
         const propTables = response.filter((response) =>
           subComponents.includes(response.displayName)
         );
