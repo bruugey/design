@@ -15,10 +15,11 @@ import {
 import { InlineCode, Link } from "@leafygreen-ui/typography";
 
 import { getHTMLAttributesLink, formatType } from "./utils";
+import { PropTableState } from "./types";
 
 const COLUMNS = ["name", "default", "description", "type"];
 
-export const PropsTable = ({ componentProps: props, name }: any) => {
+export const PropsTable = ({ props, name }: PropTableState) => {
   const { componentProps, inheritedProps } = props;
 
   return (
@@ -50,40 +51,41 @@ export const PropsTable = ({ componentProps: props, name }: any) => {
           </HeaderRow>
         </TableHead>
         <TableBody>
-          {Object.keys(componentProps)
-            .sort()
-            .map((row: string) => {
-              const {
-                name,
-                required,
-                defaultValue = false,
-                description,
-                type,
-              } = componentProps[row];
-              return (
-                <Row key={name}>
-                  <Cell>
-                    <>
-                      <InlineCode>{name}</InlineCode>
-                      <span
-                        className={css`
-                          color: red;
-                        `}
-                      >
-                        {required ? "*" : ""}
-                      </span>
-                    </>
-                  </Cell>
-                  <Cell>
-                    <InlineCode>{defaultValue?.value ?? `'-'`}</InlineCode>
-                  </Cell>
-                  <Cell>{description}</Cell>
-                  <Cell>
-                    <InlineCode>{formatType(type)}</InlineCode>
-                  </Cell>
-                </Row>
-              );
-            })}
+          {componentProps &&
+            Object.keys(componentProps)
+              .sort()
+              .map((row: string) => {
+                const {
+                  name,
+                  required,
+                  defaultValue = false,
+                  description,
+                  type,
+                } = componentProps[row];
+                return (
+                  <Row key={name}>
+                    <Cell>
+                      <>
+                        <InlineCode>{name}</InlineCode>
+                        <span
+                          className={css`
+                            color: red;
+                          `}
+                        >
+                          {required ? "*" : ""}
+                        </span>
+                      </>
+                    </Cell>
+                    <Cell>
+                      <InlineCode>{defaultValue?.value ?? `'-'`}</InlineCode>
+                    </Cell>
+                    <Cell>{description}</Cell>
+                    <Cell>
+                      <InlineCode>{formatType(type)}</InlineCode>
+                    </Cell>
+                  </Row>
+                );
+              })}
           {inheritedProps && (
             <Row key="restProps">
               <Cell>

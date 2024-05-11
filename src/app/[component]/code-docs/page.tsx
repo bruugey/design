@@ -82,7 +82,7 @@ export default function Page({ params }: { params: { component: string } }) {
       </div>
 
       {componentProps.map(({ name, props }) => {
-        return <PropsTable key={name} name={name} componentProps={props} />;
+        return <PropsTable key={name} name={name} props={props} />;
       })}
     </div>
   );
