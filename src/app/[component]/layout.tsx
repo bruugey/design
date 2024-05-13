@@ -21,6 +21,7 @@ export default function ComponentLayout({
       className={css`
         margin-left: ${spacing[800]}px;
         margin-right: ${spacing[1200]}px;
+        min-height: 100vh;
       `}
     >
       <H2

@@ -2,10 +2,11 @@
 
 import React from "react";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
+import { palette } from "@leafygreen-ui/palette";
 
 export function Modals(props: JSX.IntrinsicElements["svg"]) {
   const { darkMode } = useDarkMode();
-  const fillColor = darkMode ? "#fff" : "#001E2B";
+  const fillColor = darkMode ? palette.white : palette.black;
 
   return (
     <svg

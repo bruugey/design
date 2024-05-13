@@ -5,7 +5,7 @@ import { css } from "@emotion/css";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
 
-import { DarkModeToggle, SideNavigation } from "@/components/global";
+import { DarkModeToggle, Footer, SideNavigation } from "@/components/global";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(true);
@@ -37,12 +37,15 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
         <div
           className={css`
-            margin-left: 184px;
+            margin-left: calc(184px + ${spacing[600]}px);
+            margin-right: ${spacing[600]}px;
             height: 100%;
             padding: ${spacing[400]}px;
           `}
         >
           {children}
+
+          <Footer />
         </div>
       </div>
     </LeafyGreenProvider>
