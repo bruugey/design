@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
+    "@faker-js/faker": "^8.4.1",
     "@leafygreen-ui/badge": "^8.1.2",
     "@leafygreen-ui/banner": "^8.0.1",
     "@leafygreen-ui/button": "^21.2.0",
@@ -54,6 +55,8 @@
     "@leafygreen-ui/tokens": "^2.6.0",
     "@leafygreen-ui/tooltip": "^11.0.4",
     "@leafygreen-ui/typography": "^19.1.0",
+    "@lg-tools/storybook-utils": "^0.1.1",
+    "@storybook/react": "^8.0.10",
     "lodash": "^4.17.21",
     "next": "14.2.3",
     "react": "^18",

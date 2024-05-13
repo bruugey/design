@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { pickBy } from "lodash";
 import { css } from "@emotion/css";
+import Card from "@leafygreen-ui/card";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 import { components } from "@/utils/components";
