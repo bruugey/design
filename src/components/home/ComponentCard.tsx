@@ -69,6 +69,7 @@ export function ComponentCard() {
 
           return (
             <div
+              key={type}
               className={css`
                 display: flex;
                 flex-direction: column;
