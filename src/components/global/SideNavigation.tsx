@@ -10,8 +10,9 @@ import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding"
 // @ts-expect-error
 import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
+import { MongoDBLogo } from "@leafygreen-ui/logo";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
-
+import { spacing } from "@leafygreen-ui/tokens";
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 
 export function SideNavigation() {
@@ -30,6 +31,20 @@ export function SideNavigation() {
         z-index: 0;
       `}
     >
+      <SideNavItem
+        href="/"
+        className={css`
+          padding-top: ${spacing[600]}px;
+          padding-bottom: ${spacing[600]}px;
+        `}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push("/");
+        }}
+      >
+        <MongoDBLogo height={24} color={darkMode ? "white" : "green-dark-2"} />
+      </SideNavItem>
+
       <SideNavGroup
         collapsible
         header="Foundations"
