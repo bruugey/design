@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { composeStories } from "@storybook/react";
 import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
-
-import { getStories } from "./server";
 import { mergeObjects } from "@/utils/mergeObjects";
+import { getStories } from "./server";
+
+const OMIT_PROPS = ["as", "baseFontSize", "children"];
 
 function constructArgValues(argValues: Record<string, any>) {
   let returnObj: Record<string, any> = {};
@@ -22,13 +23,7 @@ function constructArgValues(argValues: Record<string, any>) {
   return returnObj;
 }
 
-export default function Page({
-  params,
-  searchParams,
-}: {
-  params: { component: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default function Page({ params }: { params: { component: string } }) {
   const [Component, setComponent] = useState<React.ReactNode | undefined>();
   const [props, setProps] = useState<any>();
 
