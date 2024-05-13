@@ -31,12 +31,14 @@ export default function Home() {
         <ComponentCard />
 
         <HomeCard
+          key="Foundations"
           title="Foundations"
           description="These define broader guidance on typography, iconography, and our
             color palette."
         />
 
         <HomeCard
+          key="Resources"
           title="Resources"
           description=" Resources include guidelines on accessibility, and icon creation."
         />
