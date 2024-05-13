@@ -23,6 +23,18 @@ function constructArgValues(argValues: Record<string, any>) {
   return returnObj;
 }
 
+/* TODO:
+ * Broken Components:
+ * NumberInput
+ * SearchInput
+ * Table
+ * Confirmation Modal
+ * Modal
+ * Marketing Modal
+ * Popover
+ * SplitButton
+ */
+
 export default function Page({ params }: { params: { component: string } }) {
   const [Component, setComponent] = useState<React.ReactNode | undefined>();
   const [props, setProps] = useState<any>();
@@ -31,6 +43,7 @@ export default function Page({ params }: { params: { component: string } }) {
     getStories(params.component).then((response) => {
       if (response) {
         const { LiveExample } = composeStories(response);
+
         setComponent(LiveExample as React.ReactNode);
 
         setProps(
@@ -50,7 +63,7 @@ export default function Page({ params }: { params: { component: string } }) {
   return (
     <Card
       className={css`
-        height: 300px;
+        min-height: 300px;
       `}
     >
       {Component && Component}
