@@ -1,7 +1,51 @@
 "use client";
 
-import { H1 } from "@leafygreen-ui/typography";
+import { css } from "@emotion/css";
+import { Body, H1 } from "@leafygreen-ui/typography";
+import { spacing } from "@leafygreen-ui/tokens";
+import { ComponentCard, HomeCard } from "@/components/home";
 
 export default function Home() {
-  return <H1>Hello World!</H1>;
+  return (
+    <div
+      className={css`
+        margin-left: ${spacing[600]}px;
+        margin-right: ${spacing[600]}px;
+      `}
+    >
+      <div
+        className={css`
+          margin-bottom: ${spacing[1000]}px;
+        `}
+      >
+        <H1>LeafyGreen Design System</H1>
+        <Body>
+          MongoDB’s open-source design system for building intuitive, and
+          beautiful experiences
+        </Body>
+      </div>
+
+      <div
+        className={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${spacing[600]}px;
+          max-width: 1152px;
+        `}
+      >
+        <ComponentCard />
+
+        <HomeCard
+          title="Foundations"
+          description="These define broader guidance on typography, iconography, and our
+            color palette."
+        />
+
+        <HomeCard
+          title="Resources"
+          description=" Resources include guidelines on accessibility, and icon creation."
+        />
+      </div>
+    </div>
+  );
 }
