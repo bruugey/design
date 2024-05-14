@@ -6,7 +6,7 @@ import { useServerInsertedHTML } from "next/navigation";
 import { useState } from "react";
 import { cache as lgCache } from "@leafygreen-ui/emotion";
 
-export function RootStyleRegistry({ children }: { children: JSX.Element }) {
+export function RootStyleRegistry({ children }: { children: React.ReactNode }) {
   const [cache] = useState(() => {
     const cache = createCache({ key: "docs" });
     cache.compat = true;

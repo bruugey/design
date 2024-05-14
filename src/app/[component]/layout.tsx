@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { css } from "@emotion/css";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 import { spacing } from "@leafygreen-ui/tokens";
 import { H2 } from "@leafygreen-ui/typography";
 import { useRouter, usePathname } from "next/navigation";
+
+const liveExamplePath = "live-example";
+const designDocsPath = "design-docs";
+const codeDocsPath = "code-docs";
 
 export default function ComponentLayout({
   children,
@@ -15,6 +19,21 @@ export default function ComponentLayout({
   const router = useRouter();
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[1];
+
+  const getSelected = useCallback(() => {
+    const suffix = pathname.split("/")[2];
+    if (suffix === liveExamplePath) {
+      return 0;
+    }
+
+    if (suffix === designDocsPath) {
+      return 1;
+    }
+
+    if (suffix === codeDocsPath) {
+      return 2;
+    }
+  }, [pathname]);
 
   return (
     <div
@@ -33,6 +52,7 @@ export default function ComponentLayout({
         {currentComponent.split("-").join(" ")}
       </H2>
       <Tabs
+        selected={getSelected()}
         aria-label="main tabs"
         className={css`
           margin-bottom: ${spacing[800]}px;
@@ -51,19 +71,19 @@ export default function ComponentLayout({
         }
       >
         <Tab
-          onClick={() => router.push(`/${currentComponent}/live-example`)}
+          onClick={() => router.push(`/${currentComponent}/${liveExamplePath}`)}
           name="Live Example"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/design-docs`)}
+          onClick={() => router.push(`/${currentComponent}/${designDocsPath}`)}
           name="Design Documentation"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/code-docs`)}
+          onClick={() => router.push(`/${currentComponent}/${codeDocsPath}`)}
           name="Code Documentation"
         >
           <></>
