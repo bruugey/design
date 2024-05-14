@@ -26,7 +26,12 @@ export default function Page({ params }: { params: { component: string } }) {
   );
 
   useEffect(() => {
+    if (!params.component) {
+      return;
+    }
+
     const component = params.component;
+
     getTSDocFromServer(component).then((response: Array<TSDocResponse>) => {
       const subComponents = components.find(
         (componentMeta) =>
