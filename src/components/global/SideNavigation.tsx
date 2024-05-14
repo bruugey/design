@@ -23,6 +23,7 @@ export function SideNavigation() {
 
   return (
     <SideNav
+      widthOverride={256}
       darkMode={darkMode}
       aria-label="Side Navigation"
       className={css`

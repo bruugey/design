@@ -13,7 +13,6 @@ import {
   Cell,
 } from "@leafygreen-ui/table";
 import { InlineCode, Link } from "@leafygreen-ui/typography";
-
 import { getHTMLAttributesLink, formatType } from "./utils";
 import { PropTableState } from "./types";
 
@@ -34,6 +33,9 @@ export const PropsTable = ({ props, name }: PropTableState) => {
           {name.split("-").join(" ")} Props
         </div>
       }
+      contentClassName={css`
+        padding: 0;
+      `}
     >
       <Table shouldAlternateRowColor>
         <TableHead>

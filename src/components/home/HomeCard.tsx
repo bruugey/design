@@ -34,7 +34,7 @@ export function HomeCard({ title, description, link, ...rest }: HomeCardProps) {
       >
         {title}
       </H3>
-      <Body>{description}</Body>
+      <Body baseFontSize={16}>{description}</Body>
       <Graphic
         aria-hidden
         className={css`

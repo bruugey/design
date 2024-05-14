@@ -14,7 +14,7 @@ export default function Home() {
         `}
       >
         <H1>LeafyGreen Design System</H1>
-        <Body>
+        <Body baseFontSize={16}>
           MongoDB’s open-source design system for building intuitive, and
           beautiful experiences
         </Body>

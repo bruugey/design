@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { css } from "@emotion/css";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
@@ -43,7 +43,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
         <div
           className={css`
-            margin-left: calc(184px + ${spacing[600]}px);
+            margin-left: calc(
+              256px + ${spacing[600]}px
+            ); // SideNav override + padding
             margin-right: ${spacing[600]}px;
             height: 100%;
             padding: ${spacing[400]}px;
