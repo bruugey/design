@@ -8,16 +8,12 @@ import { color, spacing } from "@leafygreen-ui/tokens";
 import {
   DarkModeToggle,
   Footer,
-  LogIn,
+  UserMenu,
   SideNavigation,
 } from "@/components/global";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const userDefault = window.matchMedia
-    ? window.matchMedia("(prefers-color-scheme: dark)").matches
-    : false;
-
-  const [darkMode, setDarkMode] = useState(userDefault);
+  const [darkMode, setDarkMode] = useState(true);
 
   return (
     <LeafyGreenProvider darkMode={darkMode}>
@@ -41,14 +37,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
             justify-content: flex-end;
           `}
         >
-          <LogIn />
+          <UserMenu />
           <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
 
         <div
           className={css`
             margin-left: calc(
-              256px + ${spacing[600]}px
+              240px + ${spacing[600]}px
             ); // SideNav override + padding
             margin-right: ${spacing[600]}px;
             height: 100%;
