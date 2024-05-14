@@ -1,7 +1,7 @@
 "use server";
 
-import { getTSDoc } from "@/utils/getTsDoc";
+import { getTSDoc } from "@/utils/getTSDoc";
 
-export default async function getTsDocFromServer(component: string) {
+export default async function getTSDocFromServer(component: string) {
   return await getTSDoc(component);
 }

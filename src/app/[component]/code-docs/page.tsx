@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
-import Card from "@leafygreen-ui/card";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 import { components } from "@/utils/components";
@@ -12,7 +11,7 @@ import {
   mergeProps,
 } from "@/components/code-docs";
 
-import getTsDocFromServer from "./server";
+import getTSDocFromServer from "./server";
 
 /*
  * TODO:
@@ -28,7 +27,7 @@ export default function Page({ params }: { params: { component: string } }) {
 
   useEffect(() => {
     const component = params.component;
-    getTsDocFromServer(component).then((response: Array<TSDocResponse>) => {
+    getTSDocFromServer(component).then((response: Array<TSDocResponse>) => {
       const subComponents = components.find(
         (componentMeta) =>
           componentMeta.name.toLowerCase().replace(/\s/g, "") ===

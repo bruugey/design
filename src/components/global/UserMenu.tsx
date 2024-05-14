@@ -37,13 +37,13 @@ export function UserMenu() {
             `}
             rightGlyph={<CaretDownIcon />}
           >
-            {session?.user?.name}
+            name
           </Button>
         }
       >
         <MenuItem>
-          <Body>{session?.user?.name}</Body>
-          <Description>{session?.user?.email}</Description>
+          <Body>name</Body>
+          <Description>email</Description>
         </MenuItem>
         <MenuItem glyph={<LogOutIcon />} onClick={() => logout()}>
           Log out
