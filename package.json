@@ -53,7 +53,7 @@
     "@leafygreen-ui/text-input": "^13.0.2",
     "@leafygreen-ui/toast": "^6.1.25",
     "@leafygreen-ui/toggle": "^10.1.1",
-    "@leafygreen-ui/tokens": "^2.6.0",
+    "@leafygreen-ui/tokens": "^2.7.0",
     "@leafygreen-ui/tooltip": "^11.0.4",
     "@leafygreen-ui/typography": "^19.1.0",
     "@lg-tools/storybook-utils": "^0.1.1",

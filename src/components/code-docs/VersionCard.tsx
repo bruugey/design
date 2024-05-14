@@ -48,8 +48,7 @@ export const VersionCard = ({ component }: { component: string }) => {
             <div
               className={css`
                 & a {
-                  color: ${color.dark.text.primary
-                    .focus}; // TODO: change when we publish link colors
+                  color: ${color.dark.text.link.default};
                 }
               `}
               dangerouslySetInnerHTML={{ __html: changelog }}
