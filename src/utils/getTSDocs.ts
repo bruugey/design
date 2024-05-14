@@ -9,7 +9,7 @@ export default function () {
 
 const getFileContent = util.promisify(fs.readFile);
 
-export async function getTSDoc(componentName: string = "button") {
+export async function getTSDocs(componentName: string = "button") {
   if (typeof componentName !== "string") return null;
 
   try {

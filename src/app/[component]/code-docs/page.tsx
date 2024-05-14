@@ -59,7 +59,7 @@ export default function Page({ params }: { params: { component: string } }) {
         setComponentProps([{ name: component, props: mergedProps }]);
       }
     });
-  }, []);
+  }, [params.component]);
 
   return (
     <div
