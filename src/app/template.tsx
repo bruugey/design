@@ -13,7 +13,11 @@ import {
 } from "@/components/global";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkMode] = useState(true);
+  const userDefault = window.matchMedia
+    ? window.matchMedia("(prefers-color-scheme: dark)").matches
+    : false;
+
+  const [darkMode, setDarkMode] = useState(userDefault);
 
   return (
     <LeafyGreenProvider darkMode={darkMode}>

@@ -34,7 +34,8 @@ export const PropsTable = ({ props, name }: PropTableState) => {
         </div>
       }
       contentClassName={css`
-        padding: 0;
+        padding-left: 0;
+        padding-right: 0;
       `}
     >
       <Table shouldAlternateRowColor>
