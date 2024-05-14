@@ -54,7 +54,7 @@ export default function Page({ params }: { params: { component: string } }) {
         );
       }
     });
-  }, []);
+  }, [params.component]);
 
   useEffect(() => {
     console.log(props);

@@ -65,7 +65,7 @@ export function ComponentCard() {
         `}
       >
         {Object.keys(ImageMap).map((type) => {
-          const Image = ImageMap[type as ImageKey];
+          const Graphic = ImageMap[type as ImageKey];
 
           return (
             <div
@@ -76,7 +76,8 @@ export function ComponentCard() {
                 align-items: center;
               `}
             >
-              <Image
+              <Graphic
+                aria-hidden
                 className={css`
                   margin-bottom: ${spacing[400]}px;
                 `}
