@@ -7,7 +7,7 @@ export function LogIn() {
   return (
     <Button
       size="small"
-      onClick={() => login().then(console.log)}
+      onClick={() => login()}
       className={css`
         border-radius: 50px;
         margin-right: ${spacing[400]}px;

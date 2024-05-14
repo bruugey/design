@@ -10,17 +10,20 @@ import Modal from "@leafygreen-ui/modal";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { color } from "@leafygreen-ui/tokens";
-import { getChangelogFromServer } from "./server";
 
-export const VersionCard = ({ component }: { component: string }) => {
+export const VersionCard = ({
+  component,
+  getChangelog,
+}: {
+  component: string;
+  getChangelog: (arg0: string) => Promise<string | null>;
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [changelog, setChangelog] = useState<string | null>(null);
   const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    getChangelogFromServer(component).then((response) =>
-      setChangelog(response)
-    );
+    getChangelog(component).then((response) => setChangelog(response));
   }, [component]);
 
   useEffect(() => {

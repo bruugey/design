@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
-import { components } from "@/utils/components";
+import { components } from "@/utils";
 import {
   TSDocResponse,
   PropTableState,
   mergeProps,
 } from "@/components/code-docs";
 
-import getTSDocFromServer from "./server";
+import { getTSDocFromServer, getChangelogFromServer } from "./server";
 
 /*
  * TODO:
@@ -82,7 +82,10 @@ export default function Page({ params }: { params: { component: string } }) {
         `}
       >
         <InstallCard component={params.component} />
-        <VersionCard component={params.component} />
+        <VersionCard
+          component={params.component}
+          getChangelog={getChangelogFromServer}
+        />
       </div>
 
       {componentProps.map(({ name, props }) => {

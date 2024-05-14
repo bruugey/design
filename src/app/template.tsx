@@ -4,7 +4,6 @@ import { useState } from "react";
 import { css } from "@emotion/css";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
-
 import {
   DarkModeToggle,
   Footer,
@@ -37,6 +36,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             justify-content: flex-end;
           `}
         >
+          <UserMenu />
           <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
 
