@@ -37,7 +37,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
             justify-content: flex-end;
           `}
         >
-          <UserMenu />
           <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
 
