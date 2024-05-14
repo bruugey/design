@@ -24,7 +24,7 @@ export const VersionCard = ({
 
   useEffect(() => {
     getChangelog(component).then((response) => setChangelog(response));
-  }, [component]);
+  }, [component, getChangelog]);
 
   useEffect(() => {
     setVersion(changelog?.split("h2")[1]?.replace(/[>/<]+/g, "") ?? null);

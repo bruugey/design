@@ -14,7 +14,8 @@ export async function getTSDocs(componentName: string = "button") {
     return JSON.parse(
       await getFileContent(
         path.join(
-          "./node_modules",
+          __dirname,
+          "../../../../../node_modules",
           `@leafygreen-ui/${componentName}`,
           "/tsdoc.json"
         ),
@@ -37,7 +38,8 @@ export async function getChangelog(
   try {
     const changelogMarkdown = await getFileContent(
       path.join(
-        "./node_modules",
+        __dirname,
+        "../../../../../node_modules",
         `@leafygreen-ui/${componentName}`,
         "/CHANGELOG.md"
       )
