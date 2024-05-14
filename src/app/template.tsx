@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
 
-import { DarkModeToggle, Footer, SideNavigation } from "@/components/global";
+import {
+  DarkModeToggle,
+  Footer,
+  LogIn,
+  SideNavigation,
+} from "@/components/global";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(true);
@@ -32,6 +37,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             justify-content: flex-end;
           `}
         >
+          <LogIn />
           <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
 
