@@ -45,7 +45,11 @@ export function ComponentCard() {
         >
           Components
         </H3>
-        <Body>
+        <Body
+          className={css`
+            max-width: 600px;
+          `}
+        >
           These components are the building blocks of MongoDB’s design system.
           We’ve grouped these components into the following categories.
         </Body>

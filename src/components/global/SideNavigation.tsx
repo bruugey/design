@@ -55,7 +55,12 @@ export function SideNavigation() {
         header="Resources"
         glyph={<GovernmentBuildingIcon />}
       ></SideNavGroup>
-      <SideNavGroup collapsible header="components" glyph={<AppsIcon />}>
+      <SideNavGroup
+        initialCollapsed={false}
+        collapsible
+        header="components"
+        glyph={<AppsIcon />}
+      >
         {Object.keys(groupedComponents).map((groupName) => (
           <SideNavGroup key={groupName} header={groupName.split("-").join(" ")}>
             {groupedComponents[groupName as Group].map(
