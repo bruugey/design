@@ -24,7 +24,7 @@ export function UserMenu() {
     });
   }, []);
 
-  return session !== undefined ? (
+  return session?.user ? (
     <div
       className={css`
         z-index: 1;
@@ -40,13 +40,13 @@ export function UserMenu() {
             `}
             rightGlyph={<CaretDownIcon />}
           >
-            {session.user?.name}
+            {session.user.name}
           </Button>
         }
       >
         <MenuItem>
-          <Body>{session.user?.name}</Body>
-          <Description>{session.user?.email}</Description>
+          <Body darkMode>{session.user.name}</Body>
+          <Description darkMode>{session.user.email}</Description>
         </MenuItem>
         <MenuItem glyph={<LogOutIcon />} onClick={() => logout()}>
           Log out
