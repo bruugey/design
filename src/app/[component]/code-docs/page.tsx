@@ -31,37 +31,38 @@ export default function Page({ params }: { params: { component: string } }) {
     }
 
     const component = params.component;
+    const subComponents = components.find(
+      (componentMeta) =>
+        componentMeta.name.toLowerCase().replace(/\s/g, "") ===
+        component.split("-").join("")
+    )?.subComponents;
 
     getTSDocFromServer(component).then((response: Array<TSDocResponse>) => {
-      const subComponents = components.find(
-        (componentMeta) =>
-          componentMeta.name.toLowerCase().replace(/\s/g, "") ===
-          component.split("-").join("")
-      )?.subComponents;
+      if (response != null) {
+        if (!!subComponents) {
+          const propTables = response.filter((response) =>
+            subComponents.includes(response.displayName)
+          );
 
-      if (!!subComponents) {
-        const propTables = response.filter((response) =>
-          subComponents.includes(response.displayName)
-        );
+          const reducedPropTables: Array<PropTableState> = propTables.reduce(
+            (acc: Array<PropTableState>, value: TSDocResponse) => {
+              const mergedProps = mergeProps(value.props);
+              return [...acc, { name: value.displayName, props: mergedProps }];
+            },
+            []
+          );
 
-        const reducedPropTables: Array<PropTableState> = propTables.reduce(
-          (acc: Array<PropTableState>, value: TSDocResponse) => {
-            const mergedProps = mergeProps(value.props);
-            return [...acc, { name: value.displayName, props: mergedProps }];
-          },
-          []
-        );
-
-        setComponentProps(reducedPropTables);
-      } else {
-        const centralProps = response.find((response) => {
-          return response.displayName
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .includes(component.toLowerCase().split("-").join(""));
-        });
-        const mergedProps = mergeProps(centralProps?.props);
-        setComponentProps([{ name: component, props: mergedProps }]);
+          setComponentProps(reducedPropTables);
+        } else {
+          const centralProps = response.find((response) => {
+            return response.displayName
+              .toLowerCase()
+              .replace(/\s/g, "")
+              .includes(component.toLowerCase().split("-").join(""));
+          });
+          const mergedProps = mergeProps(centralProps?.props);
+          setComponentProps([{ name: component, props: mergedProps }]);
+        }
       }
     });
   }, [params.component]);
