@@ -33,13 +33,20 @@ export default function Page({ params }: { params: { component: string } }) {
   const updateKnobValue = (propName: string, newValue: any) => {
     console.log("🐞updateKnobValue🐞", { propName, newValue });
 
-    setProps((p) => {
+    setProps((props) => {
       return {
-        ...p,
+        ...props,
         [propName]: {
-          ...p[propName],
+          ...props[propName],
           value: newValue,
         },
+      };
+    });
+
+    setComponentProps((props) => {
+      return {
+        ...props,
+        [propName]: newValue, // TODO: will break if not a string or boolean
       };
     });
   };
@@ -56,33 +63,34 @@ export default function Page({ params }: { params: { component: string } }) {
 
   useEffect(() => {
     if (data) {
-      setProps(
-        mergeObjects(
-          constructArgValues(data.allData?.default?.args),
-          data.allData?.default?.argTypes
-        )
+      const combinedProps = mergeObjects(
+        constructArgValues(data.allData?.default?.args),
+        data.allData?.default?.argTypes
       );
+
+      setProps(combinedProps);
+
+      const propsCopy = {};
+
+      // creates an object with all the prop names and the values
+      for (let key in combinedProps) {
+        if (key === "children") {
+          // if the child is a string the value is a string, else return the entire object
+          propsCopy[key] = combinedProps[key].value ?? {
+            ...combinedProps[key],
+          };
+        } else {
+          propsCopy[key] = combinedProps[key].value ?? undefined;
+        }
+      }
+
+      setComponentProps(propsCopy);
     }
   }, [data]);
 
   useEffect(() => {
-    const propsCopy = {};
-    for (let key in props) {
-      if (key === "children") {
-        propsCopy[key] = props[key].value ?? { ...props[key] };
-      } else {
-        propsCopy[key] = props[key].value ?? undefined;
-      }
-    }
-
-    setComponentProps(propsCopy);
-
-    console.log("🔺setComponentProps useEffect", { props, propsCopy });
-  }, [props]);
-
-  useEffect(() => {
-    console.log({ props });
-  }, [props]);
+    console.log({ props, componentProps });
+  }, [componentProps, props]);
 
   if (data?.LiveExample) {
     const Component = data.LiveExample;
