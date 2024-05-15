@@ -11,16 +11,10 @@ export async function getTSDocs(componentName: string = "button") {
   if (typeof componentName !== "string") return null;
 
   try {
-    return JSON.parse(
-      await getFileContent(
-        path.join(
-          __dirname,
-          "../../../../../node_modules",
-          `@leafygreen-ui/${componentName}`,
-          "/tsdoc.json"
-        ),
-        "utf-8"
-      )
+    return await import(`@leafygreen-ui/${componentName}/tsdoc.json`).then(
+      (response) => {
+        return response.default;
+      }
     );
   } catch (error) {
     console.warn(error);
