@@ -19,7 +19,7 @@ import { MongoDBLogo } from "@leafygreen-ui/logo";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import { spacing } from "@leafygreen-ui/tokens";
 
-import { useAppContext } from "@/contexts/AppContext";
+import { useContentStackContext } from "@/contexts/ContentStackContext";
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 
 export function SideNavigation() {
@@ -27,7 +27,7 @@ export function SideNavigation() {
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[1];
   const activePage = pathname.split('/')[2];
-  const { contentPageGroups } = useAppContext();
+  const { contentPageGroups } = useContentStackContext();
   const { darkMode } = useDarkMode();
 
   console.log({ contentPageGroups });

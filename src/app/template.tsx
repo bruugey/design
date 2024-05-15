@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
@@ -10,23 +10,24 @@ import {
   UserMenu,
   SideNavigation,
 } from "@/components/global";
-import { AppContextProvider } from "@/contexts/AppContext";
+import { ContentStackContextProvider } from "@/contexts/ContentStackContext";
 import { ComponentFields, ContentPageGroup } from "@/utils/ContentStack/types";
 import { getComponents, getContentPageGroups } from "@/utils/ContentStack/getContentstackResources";
 
-const useGetInitialAppContext = () => {
+const useGetInitialContentStackContext = () => {
   const [components, setComponents] = useState<ComponentFields[]>([]);
   const [contentPageGroups, setContentPageGroups] = useState<ContentPageGroup[]>([]);
 
   useEffect(() => {
-    async function getAppContextValuesAsync() {
-      const components = await getComponents({ includeContent: false });
-      const contentPageGroups = await getContentPageGroups();
-      console.log('getAppContextValuesAsync', { components, contentPageGroups })
+    async function getContentStackContextValuesAsync() {
+      const [components, contentPageGroups] = await Promise.all([
+        getComponents({ includeContent: false }),
+        getContentPageGroups(),
+      ]);
       setComponents(components);
       setContentPageGroups(contentPageGroups);
     }
-    getAppContextValuesAsync();
+    getContentStackContextValuesAsync();
   }, []);
 
   return {
@@ -38,10 +39,10 @@ export default function Template({ children }: {
   children: React.ReactNode;
 }) {
   const [darkMode, setDarkMode] = useState(true);
-  const { components, contentPageGroups } = useGetInitialAppContext();
+  const { components, contentPageGroups } = useGetInitialContentStackContext();
 
   return (
-    <AppContextProvider
+    <ContentStackContextProvider
       components={components}
       contentPageGroups={contentPageGroups}
     >
@@ -65,13 +66,13 @@ export default function Template({ children }: {
             display: flex;
             justify-content: flex-end;
           `}
-        >
-          <UserMenu />
-          <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-        </div>
+          >
+            <UserMenu />
+            <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+          </div>
 
-        <div
-          className={css`
+          <div
+            className={css`
             margin-left: calc(
               240px + ${spacing[600]}px
             ); // SideNav override + padding
@@ -86,6 +87,6 @@ export default function Template({ children }: {
           </div>
         </div>
       </LeafyGreenProvider>
-    </AppContextProvider>
+    </ContentStackContextProvider>
   );
 }
