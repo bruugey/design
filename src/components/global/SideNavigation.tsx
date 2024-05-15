@@ -62,6 +62,7 @@ export function SideNavigation() {
           key={contentPageGroup.uid}
           header={contentPageGroup.title}
           glyph={<Icon glyph={contentPageGroup.iconname} />}
+          collapsible
         >
           {contentPageGroup.content_pages &&
             contentPageGroup.content_pages.map(contentPage => {
@@ -82,11 +83,6 @@ export function SideNavigation() {
             })}
         </SideNavGroup>
       ))}
-      <SideNavGroup
-        collapsible
-        header="Resources"
-        glyph={<GovernmentBuildingIcon />}
-      ></SideNavGroup>
       <SideNavGroup
         initialCollapsed={false}
         collapsible
