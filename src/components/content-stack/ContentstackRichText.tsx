@@ -1,11 +1,10 @@
-import { HTMLElementProps } from '@leafygreen-ui/lib';
+import { nodeTypeToElementMap } from "./componentMap";
+import { ContentstackText } from "./ContentstackText";
+import { CSNode } from "./types";
+import { getCSNodeTextContent, isTextNode, nodeHasAssets } from "./utils";
 
-import { nodeTypeToElementMap } from './componentMap';
-import ContentstackText from './ContentstackText';
-import { CSNode } from './types';
-import { getCSNodeTextContent, isTextNode, nodeHasAssets } from './utils';
-
-interface CSRichTextProps extends Omit<HTMLElementProps<'div'>, 'content'> {
+interface CSRichTextProps
+  extends Omit<JSX.IntrinsicElements["div"], "content"> {
   content?: CSNode;
   isNested?: boolean;
   [key: string]: any;
@@ -14,7 +13,7 @@ interface CSRichTextProps extends Omit<HTMLElementProps<'div'>, 'content'> {
 /**
  * Renders a ContentStack Node
  */
-const ContentstackRichText = ({
+export const ContentstackRichText = ({
   content,
   ...rest
 }: CSRichTextProps): JSX.Element => {
@@ -33,5 +32,3 @@ const ContentstackRichText = ({
     }
   }
 };
-
-export default ContentstackRichText;

@@ -1,19 +1,23 @@
 "use client";
 
-import kebabCase from 'lodash/kebabCase';
-import startCase from 'lodash/startCase';
+import kebabCase from "lodash/kebabCase";
+import startCase from "lodash/startCase";
 
-import ContentstackRichText from '@/components/ContentstackRichText';
+import ContentstackRichText from "@/components/content-stack";
 import {
   getContentPage,
   getContentPageGroups,
-} from '@/utils/ContentStack/getContentstackResources';
+} from "@/utils/ContentStack/getContentstackResources";
 
-import { CSNode } from '@/components/ContentstackRichText/types';
-import { useEffect, useState } from 'react';
-import { ContentPage as ContentPageType } from '@/utils/ContentStack/types';
+import { CSNode } from "@/components/content-stack/types";
+import { useEffect, useState } from "react";
+import { ContentPage as ContentPageType } from "@/utils/ContentStack/types";
 
-const ContentPage = ({ params: { contentPageGroup } }: { params: { contentPageGroup: string } }) => {
+const ContentPage = ({
+  params: { contentPageGroup },
+}: {
+  params: { contentPageGroup: string };
+}) => {
   const [contentPage, setContentPage] = useState<ContentPageType>();
 
   useEffect(() => {
@@ -26,7 +30,10 @@ const ContentPage = ({ params: { contentPageGroup } }: { params: { contentPageGr
 
   return (
     <div>
-      <ContentstackRichText content={contentPage?.content as CSNode | undefined} />;
+      <ContentstackRichText
+        content={contentPage?.content as CSNode | undefined}
+      />
+      ;
     </div>
   );
 };

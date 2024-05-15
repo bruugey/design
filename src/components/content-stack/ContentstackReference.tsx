@@ -1,8 +1,8 @@
-import ContentstackEntry from './ContentstackEntry';
-import ContentstackImage from './ContentstackImage';
-import { CSNode } from './types';
+import { ContentstackEntry } from "./ContentstackEntry";
+import { ContentstackImage } from "./ContentstackImage";
+import { CSNode } from "./types";
 
-const ContentstackReference = ({
+export const ContentstackReference = ({
   content,
   ...props
 }: {
@@ -11,13 +11,13 @@ const ContentstackReference = ({
 }) => {
   const {
     type,
-    'content-type-uid': contentTypeUid,
-    'entry-uid': entryUid,
+    "content-type-uid": contentTypeUid,
+    "entry-uid": entryUid,
   } = content.attrs;
 
-  if (type === 'asset') {
+  if (type === "asset") {
     return <ContentstackImage content={content} {...props} />;
-  } else if (type === 'entry') {
+  } else if (type === "entry") {
     return (
       <ContentstackEntry
         contentTypeUid={contentTypeUid}
@@ -30,5 +30,3 @@ const ContentstackReference = ({
     return <>Unknown reference type: {type}. </>;
   }
 };
-
-export default ContentstackReference;

@@ -1,8 +1,7 @@
-import { css } from '@emotion/react';
-
-import Card from '@leafygreen-ui/card';
-import { palette } from '@leafygreen-ui/palette';
-import { spacing } from '@leafygreen-ui/tokens';
+import { css } from "@emotion/css";
+import Card from "@leafygreen-ui/card";
+import { palette } from "@leafygreen-ui/palette";
+import { spacing } from "@leafygreen-ui/tokens";
 import {
   Body,
   H1,
@@ -11,16 +10,15 @@ import {
   Link,
   Overline,
   Subtitle,
-} from '@leafygreen-ui/typography';
-
-import ContentstackChildren from './ContentstackChildren';
-import ContentstackReference from './ContentstackReference';
-import HeaderContent from './HeaderContent';
-import { CSNode, CSNodeType, CSTextNode } from './types';
+} from "@leafygreen-ui/typography";
+import { ContentstackChildren } from "./ContentstackChildren";
+import { ContentstackReference } from "./ContentstackReference";
+import { HeaderContent } from "./HeaderContent";
+import { CSNode, CSNodeType, CSTextNode } from "./types";
 
 type CSNodeTypeMapFunction = (
   node: CSNode | CSTextNode,
-  props?: any,
+  props?: any
 ) => JSX.Element;
 
 /**
@@ -36,11 +34,11 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.HEADING_1]: (node, props) => (
     <H1
-      css={
+      className={
         !props.isNested &&
         css`
-          margin-top: ${spacing[6]}px;
-          margin-bottom: ${spacing[3]}px;
+          margin-top: ${spacing[1600]}px;
+          margin-bottom: ${spacing[400]}px;
         `
       }
       {...props}
@@ -50,13 +48,13 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.HEADING_2]: (node, props) => (
     <H2
-      css={
+      className={
         !props.isNested &&
         css`
-          margin-bottom: ${spacing[2]}px;
+          margin-bottom: ${spacing[200]}px;
 
           &:not(:first-child) {
-            margin-top: ${spacing[6]}px;
+            margin-top: ${spacing[1600]}px;
           }
         `
       }
@@ -67,10 +65,10 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.HEADING_3]: (node, props) => (
     <H3
-      css={
+      className={
         !props.isNested &&
         css`
-          margin-top: ${spacing[5]}px;
+          margin-top: ${spacing[800]}px;
         `
       }
       {...props}
@@ -80,10 +78,10 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.HEADING_4]: (node, props) => (
     <Subtitle
-      css={
+      className={
         !props.isNested &&
         css`
-          margin-top: ${spacing[4]}px;
+          margin-top: ${spacing[600]}px;
         `
       }
       {...props}
@@ -103,11 +101,11 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.PARAGRAPH]: (node, props) => (
     <Body
-      css={
+      className={
         !props.isNested &&
         css`
           & {
-            margin-top: ${spacing[2]}px;
+            margin-top: ${spacing[200]}px;
           }
         `
       }
@@ -120,7 +118,7 @@ export const nodeTypeToElementMap: {
   [CSNodeType.ANCHOR]: (node, props) => (
     <Link
       href={node.attrs?.url}
-      css={css`
+      className={css`
         line-height: 28px;
         & span:after {
           bottom: 2px;
@@ -134,7 +132,7 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.ORDERED_LIST]: (node, props) => (
     <ol
-      css={css`
+      className={css`
         padding-inline-start: 25px;
       `}
       {...(node.attrs as any)}
@@ -145,9 +143,9 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.UNORDERED_LIST]: (node, props) => (
     <ul
-      css={css`
+      className={css`
         margin-top: 0px;
-        margin-bottom: ${spacing[3]}px;
+        margin-bottom: ${spacing[400]}px;
         padding-inline-start: 25px;
       `}
       {...node.attrs}
@@ -158,7 +156,7 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.LIST_ITEM]: (node, props) => (
     <li
-      css={css`
+      className={css`
         line-height: 28px;
         padding-left: 5px;
         & > * {
@@ -183,14 +181,14 @@ export const nodeTypeToElementMap: {
     const colWidths = node.attrs.colWidths ? node.attrs.colWidths : [];
     return (
       <Card
-        css={css`
-          margin-block: ${spacing[5] + spacing[2]}px;
-          padding: ${spacing[3]}px 0;
+        className={css`
+          margin-block: ${spacing[800] + spacing[200]}px;
+          padding: ${spacing[400]}px 0;
         `}
         {...props}
       >
         <table
-          css={css`
+          className={css`
             border-spacing: 0;
             ${colWidths.map(
               (colWidth: number, index: number) => `
@@ -198,7 +196,7 @@ export const nodeTypeToElementMap: {
             th:nth-of-type(${index + 1}) {
               width: ${colWidth}px;
             }
-          `,
+          `
             )}
           `}
         >
@@ -209,9 +207,9 @@ export const nodeTypeToElementMap: {
   },
   [CSNodeType.TABLE_HEAD]: (node, props) => (
     <thead
-      css={css`
+      className={css`
         border-bottom: 3px solid ${palette.gray.light1};
-        margin-top: ${spacing[3]}px;
+        margin-top: ${spacing[400]}px;
       `}
       {...props}
     >
@@ -225,15 +223,15 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.TABLE_ROW]: (node, props) => (
     <tr
-      css={css`
+      className={css`
         > td:first-of-type,
         > th:first-of-type {
-          padding-left: ${spacing[5]}px;
+          padding-left: ${spacing[800]}px;
         }
 
         > td:last-child,
         > th:last-child {
-          padding-right: ${spacing[5]}px;
+          padding-right: ${spacing[800]}px;
         }
       `}
       {...props}
@@ -243,13 +241,13 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.TABLE_HEADER_CELL]: (node, props) => (
     <th
-      css={css`
+      className={css`
         > * {
           font-weight: 700;
           margin: 0;
         }
         text-align: left;
-        padding: ${spacing[2]}px;
+        padding: ${spacing[200]}px;
         vertical-align: middle;
         border-bottom: 3px solid ${palette.gray.light2};
       `}
@@ -260,10 +258,10 @@ export const nodeTypeToElementMap: {
   ),
   [CSNodeType.TABLE_CELL]: (node, props) => (
     <td
-      css={css`
+      className={css`
         vertical-align: middle;
-        padding: ${spacing[1]}px;
-        padding-bottom: ${spacing[3]}px;
+        padding: ${spacing[100]}px;
+        padding-bottom: ${spacing[400]}px;
       `}
       {...props}
     >
