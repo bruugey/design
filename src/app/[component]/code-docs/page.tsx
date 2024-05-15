@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
+import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
 import { components } from "@/utils";
@@ -21,6 +22,7 @@ import { getTSDocFromServer, getChangelogFromServer } from "./server";
  */
 
 export default function Page({ params }: { params: { component: string } }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [componentProps, setComponentProps] = useState<Array<PropTableState>>(
     []
   );
@@ -37,34 +39,39 @@ export default function Page({ params }: { params: { component: string } }) {
         component.split("-").join("")
     )?.subComponents;
 
-    getTSDocFromServer(component).then((response: Array<TSDocResponse>) => {
-      if (response != null) {
-        if (!!subComponents) {
-          const propTables = response.filter((response) =>
-            subComponents.includes(response.displayName)
-          );
+    getTSDocFromServer(component)
+      .then((response: Array<TSDocResponse>) => {
+        if (response != null) {
+          if (!!subComponents) {
+            const propTables = response.filter((response) =>
+              subComponents.includes(response.displayName)
+            );
 
-          const reducedPropTables: Array<PropTableState> = propTables.reduce(
-            (acc: Array<PropTableState>, value: TSDocResponse) => {
-              const mergedProps = mergeProps(value.props);
-              return [...acc, { name: value.displayName, props: mergedProps }];
-            },
-            []
-          );
+            const reducedPropTables: Array<PropTableState> = propTables.reduce(
+              (acc: Array<PropTableState>, value: TSDocResponse) => {
+                const mergedProps = mergeProps(value.props);
+                return [
+                  ...acc,
+                  { name: value.displayName, props: mergedProps },
+                ];
+              },
+              []
+            );
 
-          setComponentProps(reducedPropTables);
-        } else {
-          const centralProps = response.find((response) => {
-            return response.displayName
-              .toLowerCase()
-              .replace(/\s/g, "")
-              .includes(component.toLowerCase().split("-").join(""));
-          });
-          const mergedProps = mergeProps(centralProps?.props);
-          setComponentProps([{ name: component, props: mergedProps }]);
+            setComponentProps(reducedPropTables);
+          } else {
+            const centralProps = response.find((response) => {
+              return response.displayName
+                .toLowerCase()
+                .replace(/\s/g, "")
+                .includes(component.toLowerCase().split("-").join(""));
+            });
+            const mergedProps = mergeProps(centralProps?.props);
+            setComponentProps([{ name: component, props: mergedProps }]);
+          }
         }
-      }
-    });
+      })
+      .finally(() => setIsLoading(false));
   }, [params.component]);
 
   return (
@@ -89,9 +96,13 @@ export default function Page({ params }: { params: { component: string } }) {
         />
       </div>
 
-      {componentProps.map(({ name, props }) => {
-        return <PropsTable key={name} name={name} props={props} />;
-      })}
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        componentProps.map(({ name, props }) => {
+          return <PropsTable key={name} name={name} props={props} />;
+        })
+      )}
     </div>
   );
 }

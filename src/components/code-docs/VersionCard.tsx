@@ -7,6 +7,7 @@ import Card from "@leafygreen-ui/card";
 // @ts-expect-error
 import ActivityFeed from "@leafygreen-ui/icon/dist/ActivityFeed";
 import Modal from "@leafygreen-ui/modal";
+import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { color } from "@leafygreen-ui/tokens";
@@ -18,19 +19,35 @@ export const VersionCard = ({
   component: string;
   getChangelog: (arg0: string) => Promise<string | null>;
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [changelog, setChangelog] = useState<string | null>(null);
   const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    getChangelog(component).then((response) => {
-      setChangelog(response);
-    });
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(true);
+    }, 500);
+
+    getChangelog(component)
+      .then((response) => {
+        clearTimeout(loadingTimeout);
+        setChangelog(response);
+      })
+      .finally(() => setIsLoading(false));
+
+    return () => {
+      clearTimeout(loadingTimeout);
+    };
   }, [component, getChangelog]);
 
   useEffect(() => {
     setVersion(changelog?.split("h2")[1]?.replace(/[>/<]+/g, "") ?? null);
   }, [changelog]);
+
+  if (isLoading) {
+    return <CardSkeleton />;
+  }
 
   return (
     <Card>
