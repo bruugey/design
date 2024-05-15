@@ -1,11 +1,6 @@
 "use server";
 
-import fs from "fs";
-import path from "path";
-import util from "util";
-import { markdownToHtml } from "@/utils/markdownToHtml";
-
-const getFileContent = util.promisify(fs.readFile);
+import { marked } from "marked";
 
 export async function getTSDocs(componentName: string = "button") {
   if (typeof componentName !== "string") return null;
@@ -30,15 +25,16 @@ export async function getChangelog(
   componentName: string
 ): Promise<string | null> {
   try {
-    const changelogMarkdown = await getFileContent(
-      path.join(
-        __dirname,
-        "../../../../../node_modules",
-        `@leafygreen-ui/${componentName}`,
-        "/CHANGELOG.md"
-      )
+    const response = await fetch(
+      `https://cdn.jsdelivr.net/npm/@leafygreen-ui/${componentName}/CHANGELOG.md`
     );
-    return await markdownToHtml(changelogMarkdown);
+    if (!response.ok) {
+      throw new Error("Failed to fetch Markdown file");
+    }
+    const markdown = await response.text();
+    const parsedMarkdown = marked(markdown);
+
+    return parsedMarkdown;
   } catch (error) {
     console.warn(error);
     return null;

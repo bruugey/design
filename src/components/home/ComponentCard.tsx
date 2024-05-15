@@ -118,6 +118,7 @@ export function ComponentCard() {
                 align-items: center;
                 padding: ${spacing[200]}px ${spacing[150]}px;
                 border-radius: ${borderRadius[300]}px;
+                transition: background-color 300ms ease-in-out;
 
                 &:hover {
                   background-color: ${color[theme].background.secondary.hover};

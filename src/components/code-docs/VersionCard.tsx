@@ -23,7 +23,9 @@ export const VersionCard = ({
   const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    getChangelog(component).then((response) => setChangelog(response));
+    getChangelog(component).then((response) => {
+      setChangelog(response);
+    });
   }, [component, getChangelog]);
 
   useEffect(() => {
