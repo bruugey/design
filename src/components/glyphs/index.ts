@@ -5,6 +5,7 @@ export { Foundations } from "./Foundations";
 export { Logo } from "./Logo";
 export { Modals } from "./Modals";
 export { Navigation } from "./Navigation";
+export { NotFound } from "./NotFound";
 export { Notifications } from "./Notifications";
 export { Patterns } from "./Patterns";
 export { Resources } from "./Resources";

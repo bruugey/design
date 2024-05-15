@@ -2,10 +2,10 @@
 
 import React, { useCallback } from "react";
 import { css } from "@emotion/css";
+import { useRouter, usePathname } from "next/navigation";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 import { spacing } from "@leafygreen-ui/tokens";
 import { H2 } from "@leafygreen-ui/typography";
-import { useRouter, usePathname } from "next/navigation";
 
 const liveExamplePath = "live-example";
 const designDocsPath = "design-docs";
