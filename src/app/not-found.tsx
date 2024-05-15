@@ -1,11 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Button from "@leafygreen-ui/button";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 // @ts-expect-error
 import ArrowLeftIcon from "@leafygreen-ui/icon/dist/ArrowLeft";
 import { NotFound } from "@/components/glyphs";
-import { useRouter } from "next/navigation";
 
 export default function NotFoundComponent() {
   const router = useRouter();

@@ -1,3 +1,4 @@
+export { ComingSoon } from "./ComingSoon";
 export { Components } from "./Components";
 export { Display } from "./Display";
 export { Error } from "./Error";
@@ -10,3 +11,4 @@ export { NotFound } from "./NotFound";
 export { Notifications } from "./Notifications";
 export { Patterns } from "./Patterns";
 export { Resources } from "./Resources";
+export { Security } from "./Security";

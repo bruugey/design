@@ -8,6 +8,8 @@ import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
 import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
 // @ts-expect-error
+import LockIcon from "@leafygreen-ui/icon/dist/Lock";
+// @ts-expect-error
 import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
@@ -76,6 +78,13 @@ export function SideNavigation() {
                     }
                   >
                     {component.name}
+                    {component.isPrivate && (
+                      <LockIcon
+                        className={css`
+                          margin-left: ${spacing[400]}px;
+                        `}
+                      />
+                    )}
                   </SideNavItem>
                 );
               }

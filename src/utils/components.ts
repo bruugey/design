@@ -17,6 +17,7 @@ export const components: Array<{
   navPath: string;
   group: Group;
   subComponents?: Array<string>;
+  isPrivate?: boolean;
 }> = [
   { name: "Badge", navPath: "/badge/live-example", group: Group.Notifications },
   {
@@ -260,16 +261,26 @@ export const components: Array<{
     navPath: "/tooltip/live-example",
     group: Group.Notifications,
   },
+  {
+    name: "MongoNav",
+    navPath: "/private",
+    group: Group.Navigation,
+    isPrivate: true,
+  },
 ];
 
-export type ComponentMeta = { name: string; navPath: string };
+export type ComponentMeta = {
+  name: string;
+  navPath: string;
+  isPrivate?: boolean;
+};
 
 export const groupedComponents = components.reduce((acc, obj) => {
-  const { group, name, navPath } = obj;
+  const { group, name, navPath, isPrivate } = obj;
   if (!acc[group]) {
     acc[group] = [];
   }
-  acc[group].push({ name, navPath });
+  acc[group].push({ name, navPath, isPrivate });
   // Sort the array by component value
   acc[group].sort((a, b) => a.name.localeCompare(b.name));
   return acc;
