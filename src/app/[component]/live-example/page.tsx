@@ -27,11 +27,21 @@ function constructArgValues(argValues: Record<string, any>) {
 
 export default function Page({ params }: { params: { component: string } }) {
   const [Component, setComponent] = useState<React.ReactElement | undefined>();
-  const [props, setProps] = useState<any>();
+  const [props, setProps] = useState<any>({});
+  const [componentProps, setComponentProps] = useState({});
 
   const updateKnobValue = (propName: string, newValue: any) => {
     console.log("🐞updateKnobValue🐞", { propName, newValue });
-    return "";
+
+    setProps((p) => {
+      return {
+        ...p,
+        [propName]: {
+          ...p[propName],
+          value: newValue,
+        },
+      };
+    });
   };
 
   useEffect(() => {
@@ -57,17 +67,25 @@ export default function Page({ params }: { params: { component: string } }) {
   }, []);
 
   useEffect(() => {
-    console.log("🍊", { props: props, component: Component });
+    const propsCopy = {};
+    console.log("🔺setComponentProps useEffect", { props, propsCopy });
+
+    for (let key in props) {
+      propsCopy[key] =
+        props[key].value ?? props[key].props?.children ?? undefined;
+    }
+
+    setComponentProps(propsCopy);
   }, [props]);
 
-  // TODO: does not work
-  // const clonedElement = cloneElement(Component, props);
+  useEffect(() => {
+    console.log("🍊🍊🍊", { componentProps });
+  }, [componentProps]);
 
   return (
     <Card className={""}>
-      <div>{Component && Component}</div>
+      <div>{Component && React.cloneElement(Component, componentProps)}</div>
       <div>
-        {/* FIXME: updateKnobValue is not passed down */}
         <Knobs props={props} updateKnobValue={updateKnobValue} />
       </div>
     </Card>

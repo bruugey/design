@@ -20,7 +20,7 @@ export const Knob = ({
   knobOptions,
   ...rest
 }: KnobProps) => {
-  console.log({ propName, knobTypeProp, knobOptions });
+  // console.log({ propName, value, knobTypeProp, knobOptions });
 
   const knobType =
     typeof knobTypeProp !== "string" ? knobTypeProp.type : knobTypeProp;

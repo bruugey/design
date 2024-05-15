@@ -60,8 +60,7 @@ export const KnobRow = ({ knob, knobValue, setKnobValue }: KnobRowProps) => {
       onChange={(eventOrVal) => {
         const value = eventOrVal.target?.value ?? eventOrVal;
         setKnobValue(name, value);
-        console.log(typeof setKnobValue);
-        console.log({ name, value });
+        // console.log({ name, value });
       }}
       className={knobControlStyle}
       aria-labelledby={`knob-${name}`}
