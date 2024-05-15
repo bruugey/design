@@ -1,9 +1,11 @@
+"use client";
+
 import { RootStyleRegistry } from "@/components/global/RootStyleRegistry";
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "LeafyGreen Documentation Site",
   description:
     "MongoDB's open-source, accessible design system for designing and building web applications with React.",
