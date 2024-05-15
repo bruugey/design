@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { composeStories } from "@storybook/react";
-import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
 import { mergeObjects } from "@/utils/mergeObjects";
+import { Data } from "@/components/live-example/types";
 import { getStories } from "./server";
 
 const OMIT_PROPS = ["as", "baseFontSize", "children"];
@@ -23,46 +22,40 @@ function constructArgValues(argValues: Record<string, any>) {
   return returnObj;
 }
 
-/* TODO:
- * Broken Components:
- * NumberInput
- * SearchInput
- * Table
- * Confirmation Modal
- * Modal
- * Marketing Modal
- * Popover
- * SplitButton
- */
-
 export default function Page({ params }: { params: { component: string } }) {
-  const [Component, setComponent] = useState<React.ReactNode | undefined>();
+  const [data, setData] = useState<Data | null>();
   const [props, setProps] = useState<any>();
 
   useEffect(() => {
-    getStories(params.component).then((response) => {
+    async function getAsyncStories() {
+      const response = await getStories(params.component);
       if (response) {
-        const { LiveExample } = composeStories(response);
-
-        setComponent(LiveExample as React.ReactNode);
-
-        setProps(
-          mergeObjects(
-            constructArgValues(response?.default?.args),
-            response?.default?.argTypes
-          )
-        );
+        setData(response);
       }
-    });
-  }, [params.component]);
+    }
+    getAsyncStories();
+  }, [getStories]);
 
-  return (
-    <Card
-      className={css`
-        min-height: 300px;
-      `}
-    >
-      {Component && Component}
-    </Card>
-  );
+  useEffect(() => {
+    if (data) {
+      setProps(
+        mergeObjects(
+          constructArgValues(data.allData?.default?.args),
+          data.allData?.default?.argTypes
+        )
+      );
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log({ props });
+  }, [props]);
+
+  if (data?.LiveExample) {
+    const Component = data.LiveExample;
+    // @ts-expect-error
+    return <Card>{<Component />}</Card>;
+  }
+
+  return null;
 }

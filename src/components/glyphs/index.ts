@@ -1,5 +1,6 @@
 export { Components } from "./Components";
 export { Display } from "./Display";
+export { Error } from "./Error";
 export { FormElements } from "./FormElements";
 export { Foundations } from "./Foundations";
 export { Logo } from "./Logo";

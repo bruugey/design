@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React from "react";
 import { css } from "@emotion/css";
 import { useRouter, usePathname } from "next/navigation";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
@@ -20,7 +20,7 @@ export default function ComponentLayout({
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[1];
 
-  const getSelected = useCallback(() => {
+  const getSelected = () => {
     const suffix = pathname.split("/")[2];
     if (suffix === liveExamplePath) {
       return 0;
@@ -33,7 +33,7 @@ export default function ComponentLayout({
     if (suffix === codeDocsPath) {
       return 2;
     }
-  }, [pathname]);
+  };
 
   return (
     <div
