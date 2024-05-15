@@ -8,7 +8,6 @@ import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import ArrowLeftIcon from "@leafygreen-ui/icon/dist/ArrowLeft";
 // @ts-expect-error
 import LogInIcon from "@leafygreen-ui/icon/dist/LogIn";
-import { H2 } from "@leafygreen-ui/typography";
 import { getSession, login, Session } from "@/auth";
 import { ComingSoon, Security } from "@/components/glyphs";
 

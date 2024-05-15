@@ -3,9 +3,12 @@
 import React from "react";
 import { css } from "@emotion/css";
 import { useRouter, usePathname } from "next/navigation";
+import IconButton from "@leafygreen-ui/icon-button";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
-import { spacing } from "@leafygreen-ui/tokens";
+import { color, spacing } from "@leafygreen-ui/tokens";
 import { H2 } from "@leafygreen-ui/typography";
+import { CodeSandbox, Figma, Github } from "@/components/glyphs";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 
 const liveExamplePath = "live-example";
 const designDocsPath = "design-docs";
@@ -19,6 +22,7 @@ export default function ComponentLayout({
   const router = useRouter();
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[1];
+  const { theme } = useDarkMode();
 
   const getSelected = () => {
     const suffix = pathname.split("/")[2];
@@ -62,11 +66,23 @@ export default function ComponentLayout({
             className={css`
               display: flex;
               gap: ${spacing[200]}px;
+              border-bottom: 1px solid ${color[theme].border.secondary.default};
+              flex: 1;
+              justify-content: flex-end;
+              height: 100%;
             `}
           >
-            <div>Figma</div>
-            <div>GitHub</div>
-            <div>CodeSandbox</div>
+            <IconButton aria-label="View on Figma" size="large" disabled>
+              <Figma />
+            </IconButton>
+
+            <IconButton aria-label="View on Github" size="large" disabled>
+              <Github />
+            </IconButton>
+
+            <IconButton aria-label="View in CodeSandbox" size="large" disabled>
+              <CodeSandbox />
+            </IconButton>
           </div>
         }
       >

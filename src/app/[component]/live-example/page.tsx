@@ -34,7 +34,7 @@ export default function Page({ params }: { params: { component: string } }) {
       }
     }
     getAsyncStories();
-  }, [getStories, params.component]);
+  }, [params.component]);
 
   useEffect(() => {
     if (data) {
