@@ -29,6 +29,7 @@
     ".next/types/**/*.ts",
     "components/**/*.tsx",
     "context/**/*.tsx",
+    "hooks/**/*.tsx",
     "utils/*.tsx",
   ],
   "exclude": ["node_modules"]
