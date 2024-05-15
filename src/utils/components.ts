@@ -1,8 +1,7 @@
 const Group = {
   Display: "display",
   FormElements: "form-elements",
-  Misc: "misc",
-  Modals: "modals",
+  Dialogs: "dialogs",
   Navigation: "navigation",
   Notifications: "notifications",
   Patterns: "patterns",
@@ -60,7 +59,7 @@ export const components: Array<{
   {
     name: "Confirmation Modal",
     navPath: "/confirmation-modal/live-example",
-    group: Group.Modals,
+    group: Group.Dialogs,
   },
   {
     name: "Copyable",
@@ -90,7 +89,7 @@ export const components: Array<{
   {
     name: "Guide Cue",
     navPath: "/guide-cue/live-example",
-    group: Group.Notifications,
+    group: Group.Dialogs,
   },
   {
     name: "Icon Button",
@@ -116,12 +115,12 @@ export const components: Array<{
   {
     name: "Logo",
     navPath: "/logo/live-example",
-    group: Group.Misc,
+    group: Group.Display,
   },
   {
     name: "Marketing Modal",
     navPath: "/marketing-modal/live-example",
-    group: Group.Modals,
+    group: Group.Dialogs,
   },
   {
     name: "Menu",
@@ -132,7 +131,7 @@ export const components: Array<{
   {
     name: "Modal",
     navPath: "/modal/live-example",
-    group: Group.Modals,
+    group: Group.Dialogs,
   },
   {
     name: "Number Input",
@@ -158,7 +157,7 @@ export const components: Array<{
   {
     name: "Popover",
     navPath: "/popover/live-example",
-    group: Group.Misc,
+    group: Group.Dialogs,
   },
   {
     name: "Radio Box Group",
@@ -209,12 +208,12 @@ export const components: Array<{
   {
     name: "Split Button",
     navPath: "/split-button/live-example",
-    group: Group.Misc,
+    group: Group.FormElements,
   },
   {
     name: "Stepper",
     navPath: "/stepper/live-example",
-    group: Group.Misc,
+    group: Group.Navigation,
     subComponents: ["Stepper", "Step"],
   },
   {
@@ -259,7 +258,7 @@ export const components: Array<{
   {
     name: "Tooltip",
     navPath: "/tooltip/live-example",
-    group: Group.Notifications,
+    group: Group.Dialogs,
   },
   {
     name: "MongoNav",

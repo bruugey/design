@@ -176,7 +176,7 @@ export function NotFound(props: JSX.IntrinsicElements["svg"]) {
           d="M268.415 145.935C270.799 155.482 269.847 165.557 265.718 174.489C261.589 183.421 254.53 190.673 245.713 195.043"
           stroke="black"
           strokeMiterlimit="10"
-          stroke-dasharray="2 2"
+          strokeDasharray="2 2"
         />
       </g>
       <defs>
