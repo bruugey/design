@@ -1,3 +1,2 @@
 export { components, groupedComponents } from "./components";
-export { getChangelog } from "./getChangelog";
-export { getTSDoc } from "./getTSDoc";
+export { mergeObjects } from "./mergeObjects";

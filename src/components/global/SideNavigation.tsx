@@ -8,6 +8,8 @@ import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
 import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
 // @ts-expect-error
+import LockIcon from "@leafygreen-ui/icon/dist/Lock";
+// @ts-expect-error
 import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
@@ -23,6 +25,7 @@ export function SideNavigation() {
 
   return (
     <SideNav
+      widthOverride={240}
       darkMode={darkMode}
       aria-label="Side Navigation"
       className={css`
@@ -55,7 +58,12 @@ export function SideNavigation() {
         header="Resources"
         glyph={<GovernmentBuildingIcon />}
       ></SideNavGroup>
-      <SideNavGroup collapsible header="components" glyph={<AppsIcon />}>
+      <SideNavGroup
+        initialCollapsed={false}
+        collapsible
+        header="components"
+        glyph={<AppsIcon />}
+      >
         {Object.keys(groupedComponents).map((groupName) => (
           <SideNavGroup key={groupName} header={groupName.split("-").join(" ")}>
             {groupedComponents[groupName as Group].map(
@@ -70,6 +78,13 @@ export function SideNavigation() {
                     }
                   >
                     {component.name}
+                    {component.isPrivate && (
+                      <LockIcon
+                        className={css`
+                          margin-left: ${spacing[400]}px;
+                        `}
+                      />
+                    )}
                   </SideNavItem>
                 );
               }

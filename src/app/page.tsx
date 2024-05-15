@@ -14,7 +14,7 @@ export default function Home() {
         `}
       >
         <H1>LeafyGreen Design System</H1>
-        <Body>
+        <Body baseFontSize={16}>
           MongoDB’s open-source design system for building intuitive, and
           beautiful experiences
         </Body>
@@ -31,12 +31,14 @@ export default function Home() {
         <ComponentCard />
 
         <HomeCard
+          key="Foundations"
           title="Foundations"
           description="These define broader guidance on typography, iconography, and our
             color palette."
         />
 
         <HomeCard
+          key="Resources"
           title="Resources"
           description=" Resources include guidelines on accessibility, and icon creation."
         />

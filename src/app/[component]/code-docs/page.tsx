@@ -2,17 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
-import Card from "@leafygreen-ui/card";
+import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { spacing } from "@leafygreen-ui/tokens";
 import { InstallCard, PropsTable, VersionCard } from "@/components/code-docs";
-import { components } from "@/utils/components";
+import { components } from "@/utils";
 import {
   TSDocResponse,
   PropTableState,
   mergeProps,
 } from "@/components/code-docs";
 
-import getTsDocFromServer from "./server";
+import { getTSDocFromServer, getChangelogFromServer } from "./server";
 
 /*
  * TODO:
@@ -22,45 +22,57 @@ import getTsDocFromServer from "./server";
  */
 
 export default function Page({ params }: { params: { component: string } }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [componentProps, setComponentProps] = useState<Array<PropTableState>>(
     []
   );
 
   useEffect(() => {
+    if (!params.component) {
+      return;
+    }
+
     const component = params.component;
-    getTsDocFromServer(component).then((response: Array<TSDocResponse>) => {
-      const subComponents = components.find(
-        (componentMeta) =>
-          componentMeta.name.toLowerCase().replace(/\s/g, "") ===
-          component.split("-").join("")
-      )?.subComponents;
+    const subComponents = components.find(
+      (componentMeta) =>
+        componentMeta.name.toLowerCase().replace(/\s/g, "") ===
+        component.split("-").join("")
+    )?.subComponents;
 
-      if (!!subComponents) {
-        const propTables = response.filter((response) =>
-          subComponents.includes(response.displayName)
-        );
+    getTSDocFromServer(component)
+      .then((response: Array<TSDocResponse>) => {
+        if (response != null) {
+          if (!!subComponents) {
+            const propTables = response.filter((response) =>
+              subComponents.includes(response.displayName)
+            );
 
-        const reducedPropTables: Array<PropTableState> = propTables.reduce(
-          (acc: Array<PropTableState>, value: TSDocResponse) => {
-            const mergedProps = mergeProps(value.props);
-            return [...acc, { name: value.displayName, props: mergedProps }];
-          },
-          []
-        );
+            const reducedPropTables: Array<PropTableState> = propTables.reduce(
+              (acc: Array<PropTableState>, value: TSDocResponse) => {
+                const mergedProps = mergeProps(value.props);
+                return [
+                  ...acc,
+                  { name: value.displayName, props: mergedProps },
+                ];
+              },
+              []
+            );
 
-        setComponentProps(reducedPropTables);
-      } else {
-        const centralProps = response.find((response) => {
-          return response.displayName
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .includes(component.toLowerCase().split("-").join(""));
-        });
-        const mergedProps = mergeProps(centralProps?.props);
-        setComponentProps([{ name: component, props: mergedProps }]);
-      }
-    });
-  }, []);
+            setComponentProps(reducedPropTables);
+          } else {
+            const centralProps = response.find((response) => {
+              return response.displayName
+                .toLowerCase()
+                .replace(/\s/g, "")
+                .includes(component.toLowerCase().split("-").join(""));
+            });
+            const mergedProps = mergeProps(centralProps?.props);
+            setComponentProps([{ name: component, props: mergedProps }]);
+          }
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, [params.component]);
 
   return (
     <div
@@ -78,12 +90,19 @@ export default function Page({ params }: { params: { component: string } }) {
         `}
       >
         <InstallCard component={params.component} />
-        <VersionCard component={params.component} />
+        <VersionCard
+          component={params.component}
+          getChangelog={getChangelogFromServer}
+        />
       </div>
 
-      {componentProps.map(({ name, props }) => {
-        return <PropsTable key={name} name={name} props={props} />;
-      })}
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        componentProps.map(({ name, props }) => {
+          return <PropsTable key={name} name={name} props={props} />;
+        })
+      )}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { cloneElement, useEffect, useState } from "react";
-import { composeStories } from "@storybook/react";
-// import { css } from "@emotion/css";
+import React, { useEffect, useState } from "react";
+
 import Card from "@leafygreen-ui/card";
 import { mergeObjects } from "@/utils/mergeObjects";
+import { Data } from "@/components/live-example/types";
 import { getStories } from "./server";
 import { Knobs } from "@/components/live-example/Knobs";
 
@@ -26,8 +26,8 @@ function constructArgValues(argValues: Record<string, any>) {
 }
 
 export default function Page({ params }: { params: { component: string } }) {
-  const [Component, setComponent] = useState<React.ReactElement | undefined>();
-  const [props, setProps] = useState<any>({});
+  const [data, setData] = useState<Data | null>();
+  const [props, setProps] = useState<any>();
   const [componentProps, setComponentProps] = useState({});
 
   const updateKnobValue = (propName: string, newValue: any) => {
@@ -45,49 +45,59 @@ export default function Page({ params }: { params: { component: string } }) {
   };
 
   useEffect(() => {
-    getStories(params.component).then((response) => {
+    async function getAsyncStories() {
+      const response = await getStories(params.component);
       if (response) {
-        const { LiveExample } = composeStories(response);
-        setComponent(LiveExample as React.ReactElement);
-
-        const mergedProps = mergeObjects(
-          constructArgValues(response?.default?.args),
-          response?.default?.argTypes
-        );
-
-        console.log({
-          response,
-          LiveExample,
-          props: mergedProps,
-        });
-
-        setProps(mergedProps);
+        setData(response);
       }
-    });
-  }, []);
+    }
+    getAsyncStories();
+  }, [params.component]);
+
+  useEffect(() => {
+    if (data) {
+      setProps(
+        mergeObjects(
+          constructArgValues(data.allData?.default?.args),
+          data.allData?.default?.argTypes
+        )
+      );
+    }
+  }, [data]);
 
   useEffect(() => {
     const propsCopy = {};
-    console.log("🔺setComponentProps useEffect", { props, propsCopy });
-
     for (let key in props) {
-      propsCopy[key] =
-        props[key].value ?? props[key].props?.children ?? undefined;
+      if (key === "children") {
+        propsCopy[key] = props[key].value ?? { ...props[key] };
+      } else {
+        propsCopy[key] = props[key].value ?? undefined;
+      }
     }
 
     setComponentProps(propsCopy);
+
+    console.log("🔺setComponentProps useEffect", { props, propsCopy });
   }, [props]);
 
   useEffect(() => {
-    console.log("🍊🍊🍊", { componentProps });
-  }, [componentProps]);
+    console.log({ props });
+  }, [props]);
 
-  return (
-    <Card className={""}>
-      <div>{Component && React.cloneElement(Component, componentProps)}</div>
-      <div>
-        <Knobs props={props} updateKnobValue={updateKnobValue} />
-      </div>
-    </Card>
-  );
+  if (data?.LiveExample) {
+    const Component = data.LiveExample;
+    return (
+      <Card className={""}>
+        <div>
+          {/* @ts-expect-error */}
+          <Component {...componentProps} />
+        </div>
+        <div>
+          <Knobs props={props} updateKnobValue={updateKnobValue} />
+        </div>
+      </Card>
+    );
+  }
+
+  return null;
 }

@@ -17,7 +17,7 @@ type HomeCardProps = JSX.IntrinsicElements["div"] & {
 };
 
 export function HomeCard({ title, description, link, ...rest }: HomeCardProps) {
-  const Image = imageMap[title];
+  const Graphic = imageMap[title];
 
   return (
     <Card
@@ -34,8 +34,9 @@ export function HomeCard({ title, description, link, ...rest }: HomeCardProps) {
       >
         {title}
       </H3>
-      <Body>{description}</Body>
-      <Image
+      <Body baseFontSize={16}>{description}</Body>
+      <Graphic
+        aria-hidden
         className={css`
           position: absolute;
           bottom: 0;
