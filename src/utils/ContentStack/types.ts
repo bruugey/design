@@ -1,3 +1,5 @@
+import { CSNode } from "@/components/content-stack/types";
+
 export interface ContentPageGroup extends Object {
   uid: string;
   title: string;
@@ -19,7 +21,7 @@ export interface ContentPageMeta {
  * A full content page including content
  */
 export interface ContentPage extends ContentPageMeta {
-  content: unknown;
+  content: CSNode;
 }
 
 /**

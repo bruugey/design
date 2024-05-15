@@ -30,7 +30,7 @@
     "scripts/update.mjs",
     "components/**/*.tsx",
     "context/**/*.tsx",
-    "pages/**/*.tsx",
+    "hooks/**/*.tsx",
     "utils/**/*.tsx",
   ],
   "exclude": ["node_modules"]
