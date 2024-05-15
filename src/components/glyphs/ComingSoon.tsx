@@ -175,14 +175,14 @@ export function ComingSoon(props: JSX.IntrinsicElements["svg"]) {
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M469.346 314.552C415.631 427.097 281.012 477.656 166.685 428.207"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M11.3163 292.604H194.078V298.82C194.079 301.414 193.569 303.984 192.577 306.381C191.585 308.779 190.129 310.957 188.295 312.792C186.46 314.627 184.282 316.082 181.884 317.074C179.487 318.067 176.917 318.577 174.322 318.576H31.0625C25.8255 318.576 20.8029 316.495 17.0998 312.792C13.3967 309.089 11.3163 304.066 11.3163 298.829V292.614V292.604Z"
@@ -203,28 +203,28 @@ export function ComingSoon(props: JSX.IntrinsicElements["svg"]) {
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M95.4543 292.604H139.379"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M63.5507 292.604H88.9275"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M33.2836 292.604H55.1534"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M47.9545 357.873H230.707V364.088C230.708 366.681 230.198 369.249 229.207 371.646C228.216 374.042 226.763 376.219 224.93 378.054C223.097 379.888 220.921 381.344 218.526 382.337C216.131 383.331 213.563 383.843 210.97 383.844H67.7104C65.1165 383.846 62.5477 383.336 60.1509 382.344C57.754 381.352 55.5761 379.898 53.7414 378.064C51.9068 376.23 50.4514 374.053 49.4585 371.657C48.4655 369.26 47.9545 366.692 47.9545 364.098V357.883V357.873Z"
@@ -245,28 +245,28 @@ export function ComingSoon(props: JSX.IntrinsicElements["svg"]) {
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M132.102 357.873H176.027"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M100.198 357.873H125.575"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M69.9314 357.873H91.8013"
         stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M118.094 230.531L141.152 173.621L115.366 163.188L125.887 137.158C128.274 131.264 128.782 124.777 127.342 118.583C125.902 112.389 122.583 106.792 117.841 102.556L110.106 113.846C112.322 116.268 113.807 119.268 114.388 122.499C114.969 125.73 114.623 129.06 113.389 132.102L108.206 144.893L115.522 156.583L115.464 156.719C111.507 166.537 108.569 176.734 106.696 187.152V187.288L77.1792 203.625L79.6438 229.021L101.075 237.711L118.094 230.531Z"
