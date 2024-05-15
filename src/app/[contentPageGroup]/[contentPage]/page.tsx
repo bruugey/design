@@ -4,11 +4,11 @@ import { ContentstackRichText } from "@/components/content-stack";
 import useContentPageContent from "@/hooks/useContentPageContent";
 
 const ContentPage = ({
-  params: { contentPageGroup },
+  params: { contentPage },
 }: {
-  params: { contentPageGroup: string };
+  params: { contentPage: string };
 }) => {
-  const content = useContentPageContent(contentPageGroup);
+  const content = useContentPageContent(contentPage);
 
   return (
     <ContentstackRichText
