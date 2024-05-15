@@ -3,7 +3,7 @@
 import kebabCase from "lodash/kebabCase";
 import startCase from "lodash/startCase";
 
-import ContentstackRichText from "@/components/content-stack";
+import { ContentstackRichText } from "@/components/content-stack";
 import {
   getContentPage,
   getContentPageGroups,
