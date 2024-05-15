@@ -9,11 +9,7 @@ import Icon from "@leafygreen-ui/icon";
 // @ts-expect-error
 import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
-import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
-// @ts-expect-error
 import LockIcon from "@leafygreen-ui/icon/dist/Lock";
-// @ts-expect-error
-import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
@@ -25,13 +21,11 @@ import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 export function SideNavigation() {
   const router = useRouter();
   const pathname = usePathname();
-  const currentComponent = pathname.split("/")[1];
-  const activePage = pathname.split('/')[2];
+  const [_, topLevelPage, activeSubDirOrPage] = pathname.split("/");
+  const currentComponent = topLevelPage === 'component' ? activeSubDirOrPage : '';
   const { contentPageGroups } = useContentStackContext();
   const { darkMode } = useDarkMode();
 
-  console.log({ contentPageGroups });
-  
   return (
     <SideNav
       widthOverride={240}
@@ -75,7 +69,7 @@ export function SideNavigation() {
                   href={`/${kebabCase(
                     contentPageGroup.title,
                   )}/${contentPageKebabCaseName}`}
-                  active={contentPageKebabCaseName === activePage}
+                  active={contentPageKebabCaseName === activeSubDirOrPage}
                 >
                   {contentPage.title}
                 </SideNavItem>

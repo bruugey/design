@@ -21,11 +21,10 @@ export default function ComponentLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentComponent = pathname.split("/")[1];
-  const { theme } = useDarkMode();
+  const currentComponent = pathname.split("/")[2];
 
   const getSelected = () => {
-    const suffix = pathname.split("/")[2];
+    const suffix = pathname.split("/")[3];
     if (suffix === liveExamplePath) {
       return 0;
     }
