@@ -8,7 +8,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Body } from "@leafygreen-ui/typography";
 
-import ContentstackRichText from "..";
+import { ContentstackRichText } from "..";
 
 export const BasicUsageBlock = ({ entry }: { entry: any }) => {
   const { darkMode } = useDarkMode();
