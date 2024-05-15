@@ -5,12 +5,6 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
-const metadata: Metadata = {
-  title: "LeafyGreen Documentation Site",
-  description:
-    "MongoDB's open-source, accessible design system for designing and building web applications with React.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{

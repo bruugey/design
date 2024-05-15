@@ -12,7 +12,6 @@
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.4",
     "@faker-js/faker": "^8.4.1",
-    "@emotion/styled": "^11.11.5",
     "@leafygreen-ui/badge": "^8.1.2",
     "@leafygreen-ui/banner": "^8.0.1",
     "@leafygreen-ui/button": "^21.2.0",
