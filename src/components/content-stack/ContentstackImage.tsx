@@ -14,24 +14,12 @@ export const ContentstackImage = ({
 }) => {
   const attrs = content.attrs;
 
-  const [width, setWidth] = useState<number>(attrs["width"] ?? 700);
-  const [height, setHeight] = useState<number>(attrs["height"] ?? 300);
-
-  const handleLoadingComplete = (img: {
-    naturalWidth: number;
-    naturalHeight: number;
-  }) => {
-    // Multiply by 2 since we're using @2x
-    if (img.naturalWidth) setWidth(img.naturalWidth * 2);
-    if (img.naturalHeight) setHeight(img.naturalHeight * 2);
-  };
-
   return (
     <div
       css={
         !props.isNested &&
         css`
-          max-width: 100%;
+          max-width: 700px;
           margin-top: ${spacing[800]}px;
           margin-bottom: ${spacing[600]}px;
         `
@@ -42,9 +30,8 @@ export const ContentstackImage = ({
         src={attrs["asset-link"]}
         layout="intrinsic"
         alt={attrs["asset-name"]}
-        onLoadingComplete={handleLoadingComplete}
-        width={width}
-        height={height}
+        width={700}
+        height={700}
       />
     </div>
   );

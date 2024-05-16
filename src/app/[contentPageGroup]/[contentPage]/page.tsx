@@ -1,5 +1,5 @@
 "use client";
-
+import { css } from "@emotion/css";
 import { ContentstackRichText } from "@/components/content-stack";
 import useContentPageContent from "@/hooks/useContentPageContent";
 
@@ -11,9 +11,13 @@ const ContentPage = ({
   const content = useContentPageContent(contentPage);
 
   return (
-    <ContentstackRichText
-      content={content}
-    />
+    <div
+      className={css`
+        max-width: 1000px; // TODO: Make this responsive
+      `}
+    >
+      <ContentstackRichText content={content} />
+    </div>
   );
 };
 
