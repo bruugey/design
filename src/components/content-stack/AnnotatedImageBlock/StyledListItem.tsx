@@ -19,6 +19,7 @@ export const StyledListItem = ({ children }: { children: React.ReactNode }) => {
           display: inline-flex;
           justify-content: center;
           align-items: center;
+          color: ${color[theme].text.primary.default};
           border: 1px solid ${color[theme].border.primary.default};
           border-radius: 50%;
           flex-basis: 18px;

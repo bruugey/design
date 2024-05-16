@@ -22,6 +22,7 @@ export default function ComponentLayout({
   const router = useRouter();
   const pathname = usePathname();
   const currentComponent = pathname.split("/")[2];
+  const { theme } = useDarkMode();
 
   const getSelected = () => {
     const suffix = pathname.split("/")[3];
