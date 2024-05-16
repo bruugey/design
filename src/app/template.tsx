@@ -82,7 +82,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
           ); // SideNav override + padding
           margin-right: ${spacing[600]}px;
           height: 100%;
-          padding: ${spacing[400]}px;
+          padding-left: ${spacing[400]}px;
+          padding-right: ${spacing[400]}px;
+          padding-top: ${spacing[1600]}px;
         `}
       >
         <ContentStackContextProvider
