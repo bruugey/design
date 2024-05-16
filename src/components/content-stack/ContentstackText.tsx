@@ -1,17 +1,31 @@
-import { Fragment } from "react";
-import { Polymorph } from "@leafygreen-ui/polymorphic";
+import { css, cx } from "@emotion/css";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
+import { color } from "@leafygreen-ui/tokens";
 import { CSTextNode } from "./types";
 
 type CSRichTextProps = JSX.IntrinsicElements["span"] & {
   node: CSTextNode;
 };
 
-export const ContentstackText = ({ node, ...rest }: CSRichTextProps) => {
-  const renderAs = node.bold ? "b" : rest.className ? "span" : Fragment;
+export const ContentstackText = ({
+  node,
+  className,
+  ...rest
+}: CSRichTextProps) => {
+  const { theme } = useDarkMode();
+  const Component = node.bold ? "b" : "span";
 
   return (
-    <Polymorph as={renderAs} {...rest}>
+    <Component
+      className={cx(
+        css`
+          color: ${color[theme].text.primary.default};
+        `,
+        className
+      )}
+      {...rest}
+    >
       {node.text}
-    </Polymorph>
+    </Component>
   );
 };
