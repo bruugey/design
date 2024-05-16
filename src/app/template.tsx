@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
-import LeafyGreenProvider, {
-  useDarkMode,
-} from "@leafygreen-ui/leafygreen-provider";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
 import {
   DarkModeToggle,
@@ -12,9 +10,40 @@ import {
   UserMenu,
   SideNavigation,
 } from "@/components/global";
+import { ContentStackContextProvider } from "@/contexts/ContentStackContext";
+import { ComponentFields, ContentPageGroup } from "@/utils/ContentStack/types";
+import {
+  getComponents,
+  getContentPageGroups,
+} from "@/utils/ContentStack/getContentstackResources";
+
+const useGetInitialContentStackContext = () => {
+  const [components, setComponents] = useState<ComponentFields[]>([]);
+  const [contentPageGroups, setContentPageGroups] = useState<
+    ContentPageGroup[]
+  >([]);
+
+  useEffect(() => {
+    async function getContentStackContextValuesAsync() {
+      const [components, contentPageGroups] = await Promise.all([
+        getComponents({ includeContent: false }),
+        getContentPageGroups(),
+      ]);
+      setComponents(components);
+      setContentPageGroups(contentPageGroups);
+    }
+    getContentStackContextValuesAsync();
+  }, []);
+
+  return {
+    components,
+    contentPageGroups,
+  };
+};
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { darkMode } = useDarkMode();
+  const { components, contentPageGroups } = useGetInitialContentStackContext();
 
   return (
     <div
@@ -56,7 +85,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
           padding: ${spacing[400]}px;
         `}
       >
-        {children}
+        <ContentStackContextProvider
+          components={components}
+          contentPageGroups={contentPageGroups}
+        >
+          {children}
+        </ContentStackContextProvider>
         <Footer />
       </div>
     </div>
