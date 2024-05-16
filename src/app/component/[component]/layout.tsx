@@ -21,11 +21,11 @@ export default function ComponentLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const currentComponent = pathname.split("/")[1];
+  const currentComponent = pathname.split("/")[2];
   const { theme } = useDarkMode();
 
   const getSelected = () => {
-    const suffix = pathname.split("/")[2];
+    const suffix = pathname.split("/")[3];
     if (suffix === liveExamplePath) {
       return 0;
     }
@@ -87,19 +87,25 @@ export default function ComponentLayout({
         }
       >
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${liveExamplePath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${liveExamplePath}`)
+          }
           name="Live Example"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${designDocsPath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${designDocsPath}`)
+          }
           name="Design Documentation"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${codeDocsPath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${codeDocsPath}`)
+          }
           name="Code Documentation"
         >
           <></>
