@@ -175,17 +175,34 @@ export function SideNavigation() {
         }
       />
       <NavList>
-        <NavItem onClick={() => router.push("/foundations/grid")}>Grid</NavItem>
-        <NavItem onClick={() => router.push("/foundations/icons")}>
+        <NavItem
+          active={pathname === "/foundations/grid"}
+          onClick={() => router.push("/foundations/grid")}
+        >
+          Grid
+        </NavItem>
+        <NavItem
+          active={pathname === "/foundations/icons"}
+          onClick={() => router.push("/foundations/icons")}
+        >
           Icons
         </NavItem>
-        <NavItem onClick={() => router.push("/foundations/palette")}>
+        <NavItem
+          active={pathname === "/foundations/palette"}
+          onClick={() => router.push("/foundations/palette")}
+        >
           Palette
         </NavItem>
-        <NavItem onClick={() => router.push("/foundations/tokens")}>
+        <NavItem
+          active={pathname === "/foundations/tokens"}
+          onClick={() => router.push("/foundations/tokens")}
+        >
           Tokens
         </NavItem>
-        <NavItem onClick={() => router.push("/foundations/typography")}>
+        <NavItem
+          active={pathname === "/foundations/typography"}
+          onClick={() => router.push("/foundations/typography")}
+        >
           Typography
         </NavItem>
       </NavList>
@@ -201,13 +218,22 @@ export function SideNavigation() {
         }
       />
       <NavList>
-        <NavItem onClick={() => router.push("/resources/accessibility")}>
+        <NavItem
+          active={pathname === "/resources/accessibility"}
+          onClick={() => router.push("/resources/accessibility")}
+        >
           Accessibility
         </NavItem>
-        <NavItem onClick={() => router.push("/resources/icon-creation")}>
+        <NavItem
+          active={pathname === "/resources/icon-creation"}
+          onClick={() => router.push("/resources/icon-creation")}
+        >
           Icon Creation
         </NavItem>
-        <NavItem onClick={() => router.push("/resources/brand-refresh-guide")}>
+        <NavItem
+          active={pathname === "/resources/brand-refresh-guide"}
+          onClick={() => router.push("/resources/brand-refresh-guide")}
+        >
           Brand Refresh Guide
         </NavItem>
       </NavList>
