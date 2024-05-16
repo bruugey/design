@@ -230,10 +230,10 @@ export function SideNavigation() {
           Icon Creation
         </NavItem>
         <NavItem
-          active={pathname === "/resources/brand-refresh-guide"}
-          onClick={() => router.push("/resources/brand-refresh-guide")}
+          active={pathname === "/resources/refresh-guide"}
+          onClick={() => router.push("/resources/refresh-guide")}
         >
-          Brand Refresh Guide
+          Refresh Guide
         </NavItem>
       </NavList>
 
