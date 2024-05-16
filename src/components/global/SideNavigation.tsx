@@ -135,15 +135,15 @@ export function SideNavigation() {
   return (
     <nav
       className={css`
+        position: fixed;
         top: 0;
         left: 0;
-        bottom: 0;
+        height: 100vh;
         width: 240px;
+        overflow-y: auto;
         list-style-type: none;
         overflow-x: hidden;
-        overflow-y: auto;
         padding-bottom: 16px;
-        position: absolute;
         font-size: 12px;
         background-color: ${color[theme].background.secondary.default};
       `}
