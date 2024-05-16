@@ -1,13 +1,17 @@
 import { HTMLElementProps } from "@leafygreen-ui/lib";
 
-// import { KnobOptionType, TypeString } from "../../types";
-
-export type KnobOptionType = string | number;
+export type KnobOptionType = string;
+export type KnobTypeObj = {
+  type: string;
+  min?: number;
+  max?: number;
+  [key: string]: any;
+};
+export type KnobType = string | KnobTypeObj;
 
 export interface KnobProps extends HTMLElementProps<"input"> {
   propName: string;
-  // knobType: TypeString;
-  knobType: any;
+  knobType: KnobType;
   knobOptions: Array<KnobOptionType>;
   value: any;
   onChange: (val: any) => void;

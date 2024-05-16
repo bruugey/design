@@ -1,13 +1,13 @@
 import { KnobRow } from "./KnobRow";
+import { KnobProps } from "./types";
 
 interface Knobs {
-  props: any;
+  props: KnobProps;
   updateKnobValue: (prop: string, val: any) => void;
 }
 
 export const Knobs = ({ props, updateKnobValue }: Knobs) => {
-  // console.log("🪿Knobs: ", { props });
-  let propsArr = [];
+  let propsArr: { [key: string]: any }[] = [];
 
   // convert object to an array of objects
   for (let key in props) {

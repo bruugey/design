@@ -7,9 +7,7 @@ import { HTMLElementProps } from "@leafygreen-ui/lib";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
-
-// import { KnobType } from '../types';
+import { Body } from "@leafygreen-ui/typography";
 
 import { Knob } from "./Knob/Knob";
 
@@ -60,7 +58,6 @@ export const KnobRow = ({ knob, knobValue, setKnobValue }: KnobRowProps) => {
       onChange={(eventOrVal) => {
         const value = eventOrVal.target?.value ?? eventOrVal;
         setKnobValue(name, value);
-        // console.log({ name, value });
       }}
       className={knobControlStyle}
       aria-labelledby={`knob-${name}`}

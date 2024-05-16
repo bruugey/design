@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { ChangeEventHandler, useMemo, useState } from "react";
 
 import Code from "@leafygreen-ui/code";
 import { css } from "@leafygreen-ui/emotion";
@@ -47,7 +47,9 @@ export const RawKnob = ({
   }, [value]);
   const [intermediateValue, setInterValue] = useState(valueString);
 
-  const handleTextChange = ({ target }) => {
+  const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = ({
+    target,
+  }) => {
     const { value } = target;
     setInterValue(value);
     setError(false);

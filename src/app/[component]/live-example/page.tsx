@@ -5,7 +5,11 @@ import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
 import { color, spacing } from "@leafygreen-ui/tokens";
 import { mergeObjects } from "@/utils/mergeObjects";
-import { Data } from "@/components/live-example/types";
+import {
+  Data,
+  KnobProps,
+  ComponentProps,
+} from "@/components/live-example/types";
 import { getStories } from "./server";
 import { Knobs } from "@/components/live-example/Knobs";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
@@ -34,6 +38,7 @@ const OMIT_PROPS = [
   "timeout",
   "usePortal",
   "value",
+  "trigger",
 ];
 
 function constructArgValues(argValues: Record<string, any>) {
@@ -72,8 +77,8 @@ function createDefaultProps(data: Data, darkMode: boolean) {
 export default function Page({ params }: { params: { component: string } }) {
   const { darkMode } = useDarkMode();
   const [data, setData] = useState<Data | null>();
-  const [knobProps, setKnobProps] = useState({});
-  const [componentProps, setComponentProps] = useState({});
+  const [knobProps, setKnobProps] = useState<KnobProps>({});
+  const [componentProps, setComponentProps] = useState<ComponentProps>({});
 
   useEffect(() => {
     async function getAsyncStories() {
@@ -90,21 +95,22 @@ export default function Page({ params }: { params: { component: string } }) {
       const normalizedProps = createDefaultProps(data, darkMode);
       setKnobProps(normalizedProps);
 
-      const propsCopy = {};
+      const propsWithValue: ComponentProps = {};
       // creates an object with all the prop names and the values
       for (let key in normalizedProps) {
-        if (key === "children") {
-          // if the child is a string the value is a string, else return the entire object
-          propsCopy[key] = normalizedProps[key].value ?? {
-            ...combinedProps[key],
-          };
-        } else {
-          propsCopy[key] = normalizedProps[key].value ?? undefined;
-        }
+        // if (key === "children") {
+        // if the child is a string the value is a string, else return the entire object
+        //   propsWithValue[key] = normalizedProps[key].value ?? {
+        //     ...normalizedProps[key],
+        //   };
+        // } else {
+        propsWithValue[key] = normalizedProps[key].value ?? undefined;
+        // }
       }
 
-      setComponentProps(propsCopy);
+      setComponentProps(propsWithValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {

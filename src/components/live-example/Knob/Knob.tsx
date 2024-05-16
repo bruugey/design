@@ -6,7 +6,7 @@ import Toggle from "@leafygreen-ui/toggle";
 
 import { radioBoxOverrideStyle } from "./Knob.styles";
 import { RawKnob } from "./RawKnob";
-import { KnobProps } from "./types";
+import { KnobOptionType, KnobProps, KnobTypeObj } from "./types";
 
 const inputStyle = css`
   min-width: 256px;
@@ -20,7 +20,7 @@ export const Knob = ({
   knobOptions,
   ...rest
 }: KnobProps) => {
-  // console.log({ propName, value, knobTypeProp, knobOptions });
+  console.log("🪼🪼", { propName, value, knobTypeProp, knobOptions });
 
   const knobType =
     typeof knobTypeProp !== "string" ? knobTypeProp.type : knobTypeProp;
@@ -50,6 +50,8 @@ export const Knob = ({
           value={value?.toString() ?? value}
           onChange={onChange}
           className={cx(inputStyle, rest.className)}
+          min={(knobTypeProp as KnobTypeObj)?.min ?? undefined}
+          max={(knobTypeProp as KnobTypeObj)?.max ?? undefined}
         />
       );
 
@@ -77,7 +79,7 @@ export const Knob = ({
               value={value}
               size="compact"
             >
-              {knobOptions.map((opt: string) => (
+              {knobOptions.map((opt: KnobOptionType) => (
                 <RadioBox
                   className={radioBoxOverrideStyle}
                   key={opt}
@@ -98,7 +100,7 @@ export const Knob = ({
             onChange={onChange}
             className={cx(inputStyle, rest.className)}
           >
-            {knobOptions.map((opt: string) => (
+            {knobOptions.map((opt: KnobOptionType) => (
               <Option key={opt} value={opt}>
                 {opt}
               </Option>
