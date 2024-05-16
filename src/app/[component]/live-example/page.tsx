@@ -98,14 +98,7 @@ export default function Page({ params }: { params: { component: string } }) {
       const propsWithValue: ComponentProps = {};
       // creates an object with all the prop names and the values
       for (let key in normalizedProps) {
-        // if (key === "children") {
-        // if the child is a string the value is a string, else return the entire object
-        //   propsWithValue[key] = normalizedProps[key].value ?? {
-        //     ...normalizedProps[key],
-        //   };
-        // } else {
         propsWithValue[key] = normalizedProps[key].value ?? undefined;
-        // }
       }
 
       setComponentProps(propsWithValue);
@@ -113,13 +106,7 @@ export default function Page({ params }: { params: { component: string } }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  useEffect(() => {
-    console.log({ props: knobProps, componentProps });
-  }, [componentProps, knobProps]);
-
   const updateKnobValue = (propName: string, newValue: any) => {
-    console.log("🐞updateKnobValue🐞", { propName, newValue });
-
     setKnobProps((props) => {
       return {
         ...props,
@@ -133,7 +120,7 @@ export default function Page({ params }: { params: { component: string } }) {
     setComponentProps((props) => {
       return {
         ...props,
-        [propName]: newValue, // TODO: will break if not a string or boolean
+        [propName]: newValue,
       };
     });
   };

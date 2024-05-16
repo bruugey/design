@@ -7,7 +7,7 @@ interface Knobs {
 }
 
 export const Knobs = ({ props, updateKnobValue }: Knobs) => {
-  let propsArr: { [key: string]: any }[] = [];
+  let propsArr: { name: string; [key: string]: any }[] = [];
 
   // convert object to an array of objects
   for (let key in props) {

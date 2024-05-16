@@ -12,3 +12,16 @@ export type KnobProps = {
 };
 
 export type ComponentProps = { [key: string]: any };
+
+export type Knobs =
+  | "string"
+  | "text"
+  | "number"
+  | "range"
+  | "date"
+  | "boolean"
+  | "array"
+  | "enum"
+  | "select"
+  | "radio"
+  | "none";
