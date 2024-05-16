@@ -7,7 +7,11 @@ import { ComponentCard, HomeCard } from "@/components/home";
 
 export default function Home() {
   return (
-    <div>
+    <div
+      className={css`
+        min-height: 100vh;
+      `}
+    >
       <div
         className={css`
           margin-bottom: ${spacing[1000]}px;
