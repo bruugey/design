@@ -2,24 +2,21 @@
 
 import kebabCase from "lodash/kebabCase";
 import React from "react";
-import NextLink from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { css, cx } from "@emotion/css";
-import Icon from "@leafygreen-ui/icon";
+// @ts-expect-error
+import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
+// @ts-expect-error
+import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 // @ts-expect-error
 import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
 import LockIcon from "@leafygreen-ui/icon/dist/Lock";
-import {
-  PortalContextProvider,
-  useDarkMode,
-} from "@leafygreen-ui/leafygreen-provider";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
-import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import { palette } from "@leafygreen-ui/palette";
 import { color, spacing } from "@leafygreen-ui/tokens";
 
-import { useContentStackContext } from "@/contexts/ContentStackContext";
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 
 function NavLabel({
@@ -69,7 +66,7 @@ function NavItem({
   className,
   active,
   ...rest
-}: JSX.IntrinsicElements["li"] & { active: boolean }) {
+}: JSX.IntrinsicElements["li"] & { active?: boolean }) {
   const { theme } = useDarkMode();
   return (
     <li
@@ -129,7 +126,6 @@ export function SideNavigation() {
   const [_, topLevelPage, activeSubDirOrPage] = pathname.split("/");
   const currentComponent =
     topLevelPage === "component" ? activeSubDirOrPage : "";
-  const { contentPageGroups } = useContentStackContext();
   const { darkMode, theme } = useDarkMode();
 
   return (
@@ -168,42 +164,53 @@ export function SideNavigation() {
         </NavItem>
       </header>
 
-      {contentPageGroups.map((contentPageGroup) => (
-        <>
-          <NavLabel
-            key={contentPageGroup.uid}
-            label={contentPageGroup.title}
-            glyph={
-              <Icon
-                glyph={contentPageGroup.iconname}
-                className={css`
-                  margin-right: ${spacing[200]}px;
-                `}
-              />
-            }
+      <NavLabel
+        label="Foundations"
+        glyph={
+          <UniversityIcon
+            className={css`
+              margin-right: ${spacing[200]}px;
+            `}
           />
-          {contentPageGroup.content_pages &&
-            contentPageGroup.content_pages.map((contentPage) => {
-              const contentPageKebabCaseName = kebabCase(contentPage.title);
+        }
+      />
+      <NavList>
+        <NavItem onClick={() => router.push("/foundations/grid")}>Grid</NavItem>
+        <NavItem onClick={() => router.push("/foundations/icons")}>
+          Icons
+        </NavItem>
+        <NavItem onClick={() => router.push("/foundations/palette")}>
+          Palette
+        </NavItem>
+        <NavItem onClick={() => router.push("/foundations/tokens")}>
+          Tokens
+        </NavItem>
+        <NavItem onClick={() => router.push("/foundations/typography")}>
+          Typography
+        </NavItem>
+      </NavList>
 
-              return (
-                <NavItem
-                  key={contentPage.title}
-                  active={contentPageKebabCaseName === activeSubDirOrPage}
-                  onClick={() =>
-                    router.push(
-                      `/${kebabCase(
-                        contentPageGroup.title
-                      )}/${contentPageKebabCaseName}`
-                    )
-                  }
-                >
-                  {contentPage.title}
-                </NavItem>
-              );
-            })}
-        </>
-      ))}
+      <NavLabel
+        label="Resources"
+        glyph={
+          <GovernmentBuildingIcon
+            className={css`
+              margin-right: ${spacing[200]}px;
+            `}
+          />
+        }
+      />
+      <NavList>
+        <NavItem onClick={() => router.push("/resources/accessibility")}>
+          Accessibility
+        </NavItem>
+        <NavItem onClick={() => router.push("/resources/icon-creation")}>
+          Icon Creation
+        </NavItem>
+        <NavItem onClick={() => router.push("/resources/brand-refresh-guide")}>
+          Brand Refresh Guide
+        </NavItem>
+      </NavList>
 
       <NavLabel
         label="Components"
@@ -215,6 +222,7 @@ export function SideNavigation() {
           />
         }
       />
+
       {Object.keys(groupedComponents).map((groupName) => (
         <>
           <NavLabel key={groupName} label={groupName.split("-").join(" ")} />
