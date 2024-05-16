@@ -87,19 +87,25 @@ export default function ComponentLayout({
         }
       >
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${liveExamplePath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${liveExamplePath}`)
+          }
           name="Live Example"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${designDocsPath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${designDocsPath}`)
+          }
           name="Design Documentation"
         >
           <></>
         </Tab>
         <Tab
-          onClick={() => router.push(`/${currentComponent}/${codeDocsPath}`)}
+          onClick={() =>
+            router.push(`/component/${currentComponent}/${codeDocsPath}`)
+          }
           name="Code Documentation"
         >
           <></>
