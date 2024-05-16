@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import React from "react";
+
 import Button from "@leafygreen-ui/button";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 // @ts-expect-error

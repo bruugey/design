@@ -1,26 +1,29 @@
 "use client";
 
+import kebabCase from "lodash/kebabCase";
 import React from "react";
+import NextLink from 'next/link';
 import { useRouter, usePathname } from "next/navigation";
 import { css } from "@emotion/css";
+import Icon from "@leafygreen-ui/icon";
 // @ts-expect-error
 import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
-import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
-// @ts-expect-error
 import LockIcon from "@leafygreen-ui/icon/dist/Lock";
-// @ts-expect-error
-import UniversityIcon from "@leafygreen-ui/icon/dist/University";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import { spacing } from "@leafygreen-ui/tokens";
+
+import { useContentStackContext } from "@/contexts/ContentStackContext";
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 
 export function SideNavigation() {
   const router = useRouter();
   const pathname = usePathname();
-  const currentComponent = pathname.split("/")[1];
+  const [_, topLevelPage, activeSubDirOrPage] = pathname.split("/");
+  const currentComponent = topLevelPage === 'component' ? activeSubDirOrPage : '';
+  const { contentPageGroups } = useContentStackContext();
   const { darkMode } = useDarkMode();
 
   return (
@@ -48,16 +51,32 @@ export function SideNavigation() {
         <MongoDBLogo height={24} color={darkMode ? "white" : "green-dark-2"} />
       </SideNavItem>
 
-      <SideNavGroup
-        collapsible
-        header="Foundations"
-        glyph={<UniversityIcon />}
-      ></SideNavGroup>
-      <SideNavGroup
-        collapsible
-        header="Resources"
-        glyph={<GovernmentBuildingIcon />}
-      ></SideNavGroup>
+      {contentPageGroups.map(contentPageGroup => (
+        <SideNavGroup
+          key={contentPageGroup.uid}
+          header={contentPageGroup.title}
+          glyph={<Icon glyph={contentPageGroup.iconname} />}
+          collapsible
+        >
+          {contentPageGroup.content_pages &&
+            contentPageGroup.content_pages.map(contentPage => {
+              const contentPageKebabCaseName = kebabCase(contentPage.title);
+
+              return (
+                <SideNavItem
+                  key={contentPage.title}
+                  as={NextLink}
+                  href={`/${kebabCase(
+                    contentPageGroup.title,
+                  )}/${contentPageKebabCaseName}`}
+                  active={contentPageKebabCaseName === activeSubDirOrPage}
+                >
+                  {contentPage.title}
+                </SideNavItem>
+              );
+            })}
+        </SideNavGroup>
+      ))}
       <SideNavGroup
         initialCollapsed={false}
         collapsible
