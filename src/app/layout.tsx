@@ -2,10 +2,7 @@
 import LeafyGreenProvider, {
   useDarkMode,
 } from "@leafygreen-ui/leafygreen-provider";
-import { useState } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
-
-// import { RootStyleRegistry } from "@/components/global/RootStyleRegistry";
 import "./globals.css";
 
 export default function RootLayout({
