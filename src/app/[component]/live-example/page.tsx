@@ -16,15 +16,18 @@ const OMIT_PROPS = [
   "baseFontSize",
   "children",
   "className",
+  "contentClassName",
   "defaultOpen",
   "href",
   "id",
   "inputValue",
+  "loadingIndicator",
   "menuItems",
   "name",
   "onCurrentPageOptionChange",
   "onDismiss",
   "open",
+  "primaryButton",
   "refButtonPosition",
   "shouldTooltipUsePortal",
   "stateNotifications",
@@ -54,9 +57,6 @@ function removeProps(object: Record<string, any>) {
 }
 
 function createDefaultProps(data: Data, darkMode: boolean) {
-  console.log("------");
-  console.log(data.allData?.default?.args, data.allData?.default?.argTypes);
-  console.log("------");
   const combinedProps = mergeObjects(
     constructArgValues(data.allData?.default?.args),
     data.allData?.default?.argTypes
