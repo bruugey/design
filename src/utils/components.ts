@@ -38,6 +38,7 @@ const Component = {
   MarketingModal: "marketing-modal",
   Menu: "menu",
   Modal: "modal",
+  MongoNav: "mongo-nav",
   NumberInput: "number-input",
   Pagination: "pagination",
   PasswordInput: "password-input",
@@ -64,11 +65,6 @@ const Component = {
 type Component = (typeof Component)[keyof typeof Component];
 
 const titlecase = (component: Component) => {
-  console.log({
-    component,
-    lowered: toLower(component),
-    start: startCase(component),
-  });
   return startCase(toLower(component));
 };
 
@@ -331,6 +327,12 @@ export const components: Array<{
     name: titlecase(Component.Tooltip),
     navPath: generateComponentNavPath(Component.Tooltip),
     group: Group.Dialogs,
+  },
+  {
+    name: titlecase(Component.MongoNav),
+    navPath: "/private",
+    group: Group.Navigation,
+    isPrivate: true,
   },
 ];
 
