@@ -17,8 +17,6 @@ export const Knob = ({
   onChange,
   knobOptions,
 }: KnobProps) => {
-  console.log("🪼🪼", { propName, value, knobTypeProp, knobOptions });
-
   const knobType =
     typeof knobTypeProp !== "string" ? knobTypeProp.type : knobTypeProp;
 
