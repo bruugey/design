@@ -1,12 +1,45 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
+import { color, spacing } from "@leafygreen-ui/tokens";
 import { mergeObjects } from "@/utils/mergeObjects";
-import { Data } from "@/components/live-example/types";
+import {
+  Data,
+  KnobProps,
+  ComponentProps,
+} from "@/components/live-example/types";
 import { getStories } from "./server";
+import { Knobs } from "@/components/live-example/Knobs";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 
-const OMIT_PROPS = ["as", "baseFontSize", "children"];
+const OMIT_PROPS = [
+  "aria-controls",
+  "as",
+  "baseFontSize",
+  "children",
+  "className",
+  "contentClassName",
+  "defaultOpen",
+  "href",
+  "id",
+  "inputValue",
+  "loadingIndicator",
+  "menuItems",
+  "name",
+  "onCurrentPageOptionChange",
+  "onDismiss",
+  "open",
+  "primaryButton",
+  "refButtonPosition",
+  "shouldTooltipUsePortal",
+  "stateNotifications",
+  "timeout",
+  "usePortal",
+  "value",
+  "trigger",
+];
 
 function constructArgValues(argValues: Record<string, any>) {
   let returnObj: Record<string, any> = {};
@@ -22,9 +55,30 @@ function constructArgValues(argValues: Record<string, any>) {
   return returnObj;
 }
 
+function removeProps(object: Record<string, any>) {
+  return Object.fromEntries(
+    Object.entries(object).filter(([key]) => !OMIT_PROPS.includes(key))
+  );
+}
+
+function createDefaultProps(data: Data, darkMode: boolean) {
+  const combinedProps = mergeObjects(
+    constructArgValues(data.allData?.default?.args),
+    data.allData?.default?.argTypes
+  );
+
+  const filteredProps = removeProps(combinedProps);
+
+  filteredProps.darkMode = { value: darkMode, control: "boolean" };
+
+  return filteredProps;
+}
+
 export default function Page({ params }: { params: { component: string } }) {
+  const { darkMode } = useDarkMode();
   const [data, setData] = useState<Data | null>();
-  const [props, setProps] = useState<any>();
+  const [knobProps, setKnobProps] = useState<KnobProps>({});
+  const [componentProps, setComponentProps] = useState<ComponentProps>({});
 
   useEffect(() => {
     async function getAsyncStories() {
@@ -38,23 +92,63 @@ export default function Page({ params }: { params: { component: string } }) {
 
   useEffect(() => {
     if (data) {
-      setProps(
-        mergeObjects(
-          constructArgValues(data.allData?.default?.args),
-          data.allData?.default?.argTypes
-        )
-      );
+      const normalizedProps = createDefaultProps(data, darkMode);
+      setKnobProps(normalizedProps);
+
+      const propsWithValue: ComponentProps = {};
+      // creates an object with all the prop names and the values
+      for (let key in normalizedProps) {
+        propsWithValue[key] = normalizedProps[key].value ?? undefined;
+      }
+
+      setComponentProps(propsWithValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  useEffect(() => {
-    console.log({ props });
-  }, [props]);
+  const updateKnobValue = (propName: string, newValue: any) => {
+    setKnobProps((props) => {
+      return {
+        ...props,
+        [propName]: {
+          ...props[propName],
+          value: newValue,
+        },
+      };
+    });
+
+    setComponentProps((props) => {
+      return {
+        ...props,
+        [propName]: newValue,
+      };
+    });
+  };
 
   if (data?.LiveExample) {
     const Component = data.LiveExample;
-    // @ts-expect-error
-    return <Card>{<Component />}</Card>;
+    return (
+      <Card>
+        <div
+          className={css`
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            padding: ${spacing[600]}px;
+            background-color: ${color[
+              componentProps?.darkMode ? "dark" : "light"
+            ].background.primary.default};
+          `}
+        >
+          {/* @ts-expect-error */}
+          <Component {...componentProps} />
+        </div>
+        <div>
+          <Knobs props={knobProps} updateKnobValue={updateKnobValue} />
+        </div>
+      </Card>
+    );
   }
 
   return null;
