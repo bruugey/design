@@ -1,6 +1,5 @@
 "use client";
 
-import kebabCase from "lodash/kebabCase";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { css, cx } from "@emotion/css";
@@ -284,91 +283,3 @@ export function SideNavigation() {
   );
 }
 
-//</nav>   return (
-//     <SideNav
-//       widthOverride={240}
-//       darkMode={darkMode}
-//       aria-label="Side Navigation"
-//       className={css`
-//         height: 100%;
-//         position: fixed;
-//         z-index: 0;
-//       `}
-//     >
-//       <SideNavItem
-//         href="/"
-//         className={css`
-//           padding-top: ${spacing[600]}px;
-//           padding-bottom: ${spacing[600]}px;
-//         `}
-//         onClick={(e) => {
-//           e.preventDefault();
-//           router.push("/");
-//         }}
-//       >
-//         <MongoDBLogo height={24} color={darkMode ? "white" : "green-dark-2"} />
-//       </SideNavItem>
-
-//       {contentPageGroups.map(contentPageGroup => (
-//         <SideNavGroup
-//           key={contentPageGroup.uid}
-//           header={contentPageGroup.title}
-//           glyph={<Icon glyph={contentPageGroup.iconname} />}
-//           collapsible
-//         >
-//           {contentPageGroup.content_pages &&
-//             contentPageGroup.content_pages.map(contentPage => {
-//               const contentPageKebabCaseName = kebabCase(contentPage.title);
-
-//               return (
-//                 <SideNavItem
-//                   key={contentPage.title}
-//                   as={NextLink}
-//                   href={`/${kebabCase(
-//                     contentPageGroup.title,
-//                   )}/${contentPageKebabCaseName}`}
-//                   active={contentPageKebabCaseName === activeSubDirOrPage}
-//                 >
-//                   {contentPage.title}
-//                 </SideNavItem>
-//               );
-//             })}
-//         </SideNavGroup>
-//       ))}
-//       <SideNavGroup
-//         initialCollapsed={false}
-//         collapsible
-//         header="components"
-//         glyph={<AppsIcon />}
-//       >
-//         {Object.keys(groupedComponents).map((groupName) => (
-//           <SideNavGroup key={groupName} header={groupName.split("-").join(" ")}>
-//             {groupedComponents[groupName as Group].map(
-//               (component: ComponentMeta) => {
-//                 return (
-//                   <SideNavItem
-//                     key={component.name}
-//                     onClick={() => router.push(component.navPath)}
-//                     active={
-//                       currentComponent.toLowerCase().split("-").join(" ") ===
-//                       component.name.toLowerCase()
-//                     }
-//                   >
-//                     {component.name}
-//                     {component.isPrivate && (
-//                       <LockIcon
-//                         className={css`
-//                           margin-left: ${spacing[400]}px;
-//                         `}
-//                       />
-//                     )}
-//                   </SideNavItem>
-//                 );
-//               }
-//             )}
-//           </SideNavGroup>
-//         ))}
-//       </SideNavGroup>
-//     </SideNav>
-//   );
-// }

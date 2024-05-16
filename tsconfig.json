@@ -26,10 +26,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/**/*.tsx",
     "context/**/*.tsx",
+    "scripts/update.mjs",
+    "components/**/*.tsx",
     "hooks/**/*.tsx",
-    "utils/*.tsx",
+    "utils/**/*.tsx",
   ],
   "exclude": ["node_modules"]
 }
