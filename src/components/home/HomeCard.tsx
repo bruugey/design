@@ -1,9 +1,10 @@
 import React from "react";
 import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
-import { Body, H3 } from "@leafygreen-ui/typography";
+import { Body, H3, Link } from "@leafygreen-ui/typography";
 import { Foundations, Resources } from "@/components/glyphs";
 import { spacing } from "@leafygreen-ui/tokens";
+import { useRouter } from "next/navigation";
 
 const imageMap = {
   Foundations: Foundations,
@@ -18,6 +19,7 @@ type HomeCardProps = JSX.IntrinsicElements["div"] & {
 
 export function HomeCard({ title, description, link, ...rest }: HomeCardProps) {
   const Graphic = imageMap[title];
+  const router = useRouter();
 
   return (
     <Card
@@ -35,6 +37,18 @@ export function HomeCard({ title, description, link, ...rest }: HomeCardProps) {
         {title}
       </H3>
       <Body baseFontSize={16}>{description}</Body>
+      {link && (
+        <Link
+          as="button"
+          className={css`
+            padding-top: ${24}px;
+          `}
+          arrowAppearance="persist"
+          onClick={() => router.push(link)}
+        >
+          Learn More
+        </Link>
+      )}
       <Graphic
         aria-hidden
         className={css`

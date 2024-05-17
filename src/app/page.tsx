@@ -39,12 +39,14 @@ export default function Home() {
           title="Foundations"
           description="These define broader guidance on typography, iconography, and our
             color palette."
+          link="/foundations/grid"
         />
 
         <HomeCard
           key="Resources"
           title="Resources"
           description=" Resources include guidelines on accessibility, and icon creation."
+          link="/resources/accessibility"
         />
       </div>
     </div>
