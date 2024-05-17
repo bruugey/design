@@ -1,16 +1,22 @@
 "use client";
 
 import { css } from "@emotion/css";
+
 import Card from "@leafygreen-ui/card";
 
-export default function Page({ params }: { params: { component: string } }) {
+import { ContentstackRichText } from "@/components/content-stack";
+import useComponentFields from "@/hooks/useComponentFields";
+
+export default function Page({ params: { component: componentName } }: { params: { component: string } }) {
+  const component = useComponentFields({ componentName, includeContent: true });
+
   return (
     <Card
       className={css`
-        height: 300px;
+        max-width: 1000px; // TODO: Make this responsive
       `}
     >
-      Hello World, From Design Docs
+      <ContentstackRichText content={component?.designguidelines} />
     </Card>
   );
 }
