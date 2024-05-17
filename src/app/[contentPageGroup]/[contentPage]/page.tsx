@@ -1,14 +1,26 @@
 "use client";
-import { css } from "@emotion/css";
-import { ContentstackRichText } from "@/components/content-stack";
-import useContentPageContent from "@/hooks/useContentPageContent";
 
-const ContentPage = ({
-  params: { contentPage },
+import { css } from "@emotion/css";
+import startCase from "lodash/startCase";
+import { useEffect, useState } from "react";
+
+import { ContentstackRichText } from "@/components/content-stack";
+import { getContentPage } from "@/utils/ContentStack/getContentstackResources";
+import { ContentPage as ContentPageType } from "@/utils/ContentStack/types";
+
+export default function ContentPage({
+  params: { contentPage: contentPageName },
 }: {
   params: { contentPage: string };
-}) => {
-  const content = useContentPageContent(contentPage);
+}) {
+  const [contentPage, setContentPage] = useState<ContentPageType>();
+
+  useEffect(() => {
+    (async function () {
+      const contentPageObj = await getContentPage(startCase(contentPageName));
+      setContentPage(contentPageObj);
+    })();
+  }, [contentPageName]);
 
   return (
     <div
@@ -16,9 +28,7 @@ const ContentPage = ({
         max-width: 1000px; // TODO: Make this responsive
       `}
     >
-      <ContentstackRichText content={content} />
+      <ContentstackRichText content={contentPage?.content} />
     </div>
   );
 };
-
-export default ContentPage;

@@ -1,14 +1,18 @@
 "use client";
 
-import React from "react";
 import { css } from "@emotion/css";
 import { useRouter, usePathname } from "next/navigation";
+import React from "react";
+
 import IconButton from "@leafygreen-ui/icon-button";
+import { CodeSandbox, Figma, Github } from "@/components/glyphs";
+import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 import { color, spacing } from "@leafygreen-ui/tokens";
 import { H2 } from "@leafygreen-ui/typography";
-import { CodeSandbox, Figma, Github } from "@/components/glyphs";
-import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
+
+import useComponentFields from "@/hooks/useComponentFields";
+import { getGithubLink } from "@/utils";
 
 const liveExamplePath = "live-example";
 const designDocsPath = "design-docs";
@@ -24,6 +28,8 @@ export default function ComponentLayout({
   const currentComponent = pathname.split("/")[2];
   const { theme } = useDarkMode();
 
+  const component = useComponentFields({ componentName: currentComponent });
+
   const getSelected = () => {
     const suffix = pathname.split("/")[3];
     if (suffix === liveExamplePath) {
@@ -38,6 +44,24 @@ export default function ComponentLayout({
       return 2;
     }
   };
+
+  const externalLinks = [
+    {
+      'aria-label': 'View Figma file',
+      href: component?.figmaurl,
+      icon: <Figma />,
+    },
+    {
+      'aria-label': 'View GitHub package',
+      href: getGithubLink(component?.private ?? false, component?.title),
+      icon: <Github />,
+    },
+    {
+      'aria-label': 'Edit in CodeSandbox',
+      href: component?.codesandbox_url?.href,
+      icon: <CodeSandbox />,
+    },
+  ]
 
   return (
     <div
@@ -72,17 +96,18 @@ export default function ComponentLayout({
               height: 100%;
             `}
           >
-            <IconButton aria-label="View on Figma" size="large" disabled>
-              <Figma />
-            </IconButton>
-
-            <IconButton aria-label="View on Github" size="large" disabled>
-              <Github />
-            </IconButton>
-
-            <IconButton aria-label="View in CodeSandbox" size="large" disabled>
-              <CodeSandbox />
-            </IconButton>
+            {externalLinks.map(({ 'aria-label': ariaLabel, href, icon }, index) => (
+              <IconButton
+                key={ariaLabel + index}
+                aria-label={ariaLabel}
+                size="large"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {icon}
+              </IconButton>
+            ))}
           </div>
         }
       >

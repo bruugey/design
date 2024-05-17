@@ -42,7 +42,7 @@ export interface ComponentPageMeta {
  * including `figmaUrl` & `designguidelines` content
  */
 export interface ComponentFields extends ComponentPageMeta {
-  designguidelines?: unknown;
+  designguidelines?: CSNode;
 }
 
 export interface BaseLayoutProps {
