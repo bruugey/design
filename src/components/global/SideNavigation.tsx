@@ -140,7 +140,7 @@ export function SideNavigation() {
         overflow-x: hidden;
         padding-bottom: 16px;
         font-size: 12px;
-        background-color: ${color[theme].background.secondary.default};
+        border-right: 1px solid ${color[theme].border.secondary.default};
       `}
     >
       <header>
