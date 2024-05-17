@@ -1,3 +1,6 @@
+"use client";
+
+import { NotFound } from "@/components/global/NotFound";
 import { nodeTypeToElementMap } from "./componentMap";
 import { ContentstackText } from "./ContentstackText";
 import { CSNode } from "./types";
@@ -17,7 +20,7 @@ export const ContentstackRichText = ({
   content,
   ...rest
 }: CSRichTextProps): JSX.Element => {
-  if (!content) return <>Content not found</>;
+  if (!content) return <NotFound />;
 
   if (isTextNode(content) && getCSNodeTextContent(content)) {
     return <ContentstackText node={content} {...rest} />;

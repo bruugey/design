@@ -8,6 +8,7 @@ import Card from "@leafygreen-ui/card";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 // @ts-expect-error
 import ArrowRight from "@leafygreen-ui/icon/dist/ArrowRight";
+import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { spacing } from "@leafygreen-ui/tokens";
 
 import { AnnotatedImageBlock } from "./AnnotatedImageBlock";
@@ -106,7 +107,7 @@ const ContentstackEntry = <T extends ContentTypeUID>({
   }, [contentTypeUid, entryUid]);
 
   if (!entry) {
-    return <>Loading embedded entry...</>;
+    return <CardSkeleton />;
   }
 
   return blockToElementMap[contentTypeUid](entry);
