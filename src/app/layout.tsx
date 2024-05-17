@@ -1,4 +1,5 @@
 "use client";
+import { RootStyleRegistry } from "@/components/global";
 import LeafyGreenProvider, {
   useDarkMode,
 } from "@leafygreen-ui/leafygreen-provider";
@@ -14,10 +15,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
-        <LeafyGreenProvider darkMode={darkMode}>{children}</LeafyGreenProvider>
-        <GoogleAnalytics gaId="G-X7J8VSCE69" />
-      </body>
+      <RootStyleRegistry>
+        <body>
+          <LeafyGreenProvider darkMode={darkMode}>
+            {children}
+          </LeafyGreenProvider>
+          <GoogleAnalytics gaId="G-X7J8VSCE69" />
+        </body>
+      </RootStyleRegistry>
     </html>
   );
 }
