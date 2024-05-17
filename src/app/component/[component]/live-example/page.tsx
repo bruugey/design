@@ -106,6 +106,10 @@ export default function Page({ params }: { params: { component: string } }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  useEffect(() => {
+    updateKnobValue("darkMode", darkMode);
+  }, [darkMode]);
+
   const updateKnobValue = (propName: string, newValue: any) => {
     setKnobProps((props) => {
       return {
