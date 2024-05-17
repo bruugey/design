@@ -12,7 +12,7 @@ import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
 import LockIcon from "@leafygreen-ui/icon/dist/Lock";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
-import { MongoDBLogo } from "@leafygreen-ui/logo";
+import { MongoDBLogo, SupportedColors } from "@leafygreen-ui/logo";
 import { palette } from "@leafygreen-ui/palette";
 import { color, spacing } from "@leafygreen-ui/tokens";
 
@@ -157,7 +157,7 @@ export function SideNavigation() {
         >
           <MongoDBLogo
             height={24}
-            color={darkMode ? "white" : "green-dark-2"}
+            color={darkMode ? SupportedColors.White : SupportedColors.Black}
           />
         </NavItem>
       </header>
