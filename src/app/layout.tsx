@@ -1,6 +1,7 @@
 "use client";
 
 import { RootStyleRegistry } from "@/components/global";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import LeafyGreenProvider, {
   useDarkMode,
 } from "@leafygreen-ui/leafygreen-provider";
@@ -12,7 +13,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { darkMode } = useDarkMode(true);
+  const [prefersDarkMode] = useMediaQuery(["(prefers-color-scheme: dark)"], {
+    fallback: [true],
+  });
+
+  const { darkMode } = useDarkMode(prefersDarkMode);
 
   return (
     <html lang="en">
