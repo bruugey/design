@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { css } from "@emotion/css";
 import Card from "@leafygreen-ui/card";
-import { color, spacing } from "@leafygreen-ui/tokens";
+import { borderRadius, color, spacing } from "@leafygreen-ui/tokens";
 import { mergeObjects } from "@/utils/mergeObjects";
 import {
   Data,
@@ -128,23 +128,38 @@ export default function Page({ params }: { params: { component: string } }) {
   if (data?.LiveExample) {
     const Component = data.LiveExample;
     return (
-      <Card>
+      <Card
+        className={css`
+          padding: 0;
+        `}
+      >
         <div
           className={css`
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 300px;
-            padding: ${spacing[600]}px;
+            border-radius: ${borderRadius[600]}px ${borderRadius[600]}px 0 0;
             background-color: ${color[
               componentProps?.darkMode ? "dark" : "light"
             ].background.primary.default};
           `}
         >
-          {/* @ts-expect-error */}
-          <Component {...componentProps} />
+          <div
+            className={css`
+              padding-left: ${spacing[600]}px;
+              padding-right: ${spacing[600]}px;
+            `}
+          >
+            {/* @ts-expect-error */}
+            <Component {...componentProps} />
+          </div>
         </div>
-        <div>
+        <div
+          className={css`
+            padding: 0 ${spacing[600]}px ${spacing[600]}px ${spacing[600]}px;
+          `}
+        >
           <Knobs props={knobProps} updateKnobValue={updateKnobValue} />
         </div>
       </Card>

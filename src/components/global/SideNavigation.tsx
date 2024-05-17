@@ -154,7 +154,6 @@ export function SideNavigation() {
             e.preventDefault();
             router.push("/");
           }}
-          active={pathname === "/"}
         >
           <MongoDBLogo
             height={24}
@@ -282,4 +281,3 @@ export function SideNavigation() {
     </nav>
   );
 }
-

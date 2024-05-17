@@ -1,4 +1,5 @@
 "use client";
+
 import { RootStyleRegistry } from "@/components/global";
 import LeafyGreenProvider, {
   useDarkMode,
