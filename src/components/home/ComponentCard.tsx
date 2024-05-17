@@ -119,6 +119,7 @@ export function ComponentCard() {
                 padding: ${spacing[200]}px ${spacing[150]}px;
                 border-radius: ${borderRadius[300]}px;
                 transition: background-color 300ms ease-in-out;
+                cursor: pointer;
 
                 &:hover {
                   background-color: ${color[theme].background.secondary.hover};
