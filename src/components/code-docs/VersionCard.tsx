@@ -19,26 +19,17 @@ export const VersionCard = ({
   component: string;
   getChangelog: (arg0: string) => Promise<string | null>;
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [changelog, setChangelog] = useState<string | null>(null);
   const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(true);
-    }, 500);
-
     getChangelog(component)
       .then((response) => {
-        clearTimeout(loadingTimeout);
         setChangelog(response);
       })
       .finally(() => setIsLoading(false));
-
-    return () => {
-      clearTimeout(loadingTimeout);
-    };
   }, [component, getChangelog]);
 
   useEffect(() => {
