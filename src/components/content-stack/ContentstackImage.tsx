@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { css } from "@emotion/css";
+import { cx, css } from "@emotion/css";
 import Image from "next/image";
 import { spacing } from "@leafygreen-ui/tokens";
 import { CSNode } from "./types";
@@ -16,14 +16,13 @@ export const ContentstackImage = ({
 
   return (
     <div
-      css={
-        !props.isNested &&
-        css`
+      className={cx({
+        [css`
           max-width: 700px;
           margin-top: ${spacing[800]}px;
           margin-bottom: ${spacing[600]}px;
-        `
-      }
+        `]: !props.isNested,
+      })}
       {...props}
     >
       <Image
