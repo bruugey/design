@@ -69,13 +69,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
           padding-right: ${spacing[400]}px;
           display: flex;
           justify-content: flex-end;
+          gap: ${spacing[150]}px;
           position: absolute;
           top: 0;
           right: 0;
         `}
       >
-        <UserMenu />
         <DarkModeToggle />
+        <UserMenu />
       </div>
 
       <div
