@@ -9,7 +9,6 @@ import CaretDownIcon from "@leafygreen-ui/icon/dist/CaretDown";
 import LogOutIcon from "@leafygreen-ui/icon/dist/LogOut";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { Body, Description } from "@leafygreen-ui/typography";
-import { spacing } from "@leafygreen-ui/tokens";
 import { getSession, logout, Session } from "@/auth";
 import { LogIn } from "./LogIn";
 
@@ -36,7 +35,6 @@ export function UserMenu() {
             size="small"
             className={css`
               border-radius: 50px;
-              margin-right: ${spacing[400]}px;
             `}
             rightGlyph={<CaretDownIcon />}
           >
