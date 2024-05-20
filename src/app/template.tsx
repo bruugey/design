@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
+import React, { useEffect, useState } from "react";
+
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
 import { color, spacing } from "@leafygreen-ui/tokens";
+
 import {
   DarkModeToggle,
   Footer,
   UserMenu,
   SideNavigation,
 } from "@/components/global";
+import { SIDE_NAV_WIDTH } from "@/constants";
 import { ContentStackContextProvider } from "@/contexts/ContentStackContext";
 import { ComponentFields, ContentPageGroup } from "@/utils/ContentStack/types";
 import {
@@ -66,24 +69,22 @@ export default function Template({ children }: { children: React.ReactNode }) {
           padding-right: ${spacing[400]}px;
           display: flex;
           justify-content: flex-end;
+          gap: ${spacing[150]}px;
           position: absolute;
           top: 0;
           right: 0;
         `}
       >
-        <UserMenu />
         <DarkModeToggle />
+        <UserMenu />
       </div>
 
       <div
         className={css`
-          margin-left: calc(
-            240px + ${spacing[600]}px
-          ); // SideNav override + padding
-          margin-right: ${spacing[600]}px;
+          margin-left: ${SIDE_NAV_WIDTH}px; // SideNav override
           height: 100%;
-          padding-left: ${spacing[400]}px;
-          padding-right: ${spacing[400]}px;
+          padding-left: ${spacing[1000]}px;
+          padding-right: ${spacing[1000]}px;
           padding-top: ${spacing[1600]}px;
         `}
       >

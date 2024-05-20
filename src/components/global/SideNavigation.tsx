@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { css, cx } from "@emotion/css";
+
 // @ts-expect-error
 import GovernmentBuildingIcon from "@leafygreen-ui/icon/dist/GovernmentBuilding";
 // @ts-expect-error
@@ -12,10 +13,11 @@ import AppsIcon from "@leafygreen-ui/icon/dist/Apps";
 // @ts-expect-error
 import LockIcon from "@leafygreen-ui/icon/dist/Lock";
 import { useDarkMode } from "@leafygreen-ui/leafygreen-provider";
-import { MongoDBLogo } from "@leafygreen-ui/logo";
+import { MongoDBLogo, SupportedColors } from "@leafygreen-ui/logo";
 import { palette } from "@leafygreen-ui/palette";
 import { color, spacing } from "@leafygreen-ui/tokens";
 
+import { SIDE_NAV_WIDTH } from "@/constants";
 import { ComponentMeta, Group, groupedComponents } from "@/utils/components";
 
 function NavLabel({
@@ -134,7 +136,7 @@ export function SideNavigation() {
         top: 0;
         left: 0;
         height: 100vh;
-        width: 240px;
+        width: ${SIDE_NAV_WIDTH}px;
         overflow-y: auto;
         list-style-type: none;
         overflow-x: hidden;
@@ -157,7 +159,7 @@ export function SideNavigation() {
         >
           <MongoDBLogo
             height={24}
-            color={darkMode ? "white" : "green-dark-2"}
+            color={darkMode ? SupportedColors.White : SupportedColors.Black}
           />
         </NavItem>
       </header>
