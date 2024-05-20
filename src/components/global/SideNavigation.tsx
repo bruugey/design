@@ -165,6 +165,7 @@ export function SideNavigation() {
       </header>
 
       <NavLabel
+        key="Foundations"
         label="Foundations"
         glyph={
           <UniversityIcon
@@ -176,30 +177,35 @@ export function SideNavigation() {
       />
       <NavList>
         <NavItem
+          key="grid"
           active={pathname === "/foundations/grid"}
           onClick={() => router.push("/foundations/grid")}
         >
           Grid
         </NavItem>
         <NavItem
+          key="icons"
           active={pathname === "/foundations/icons"}
           onClick={() => router.push("/foundations/icons")}
         >
           Icons
         </NavItem>
         <NavItem
+          key="palette"
           active={pathname === "/foundations/palette"}
           onClick={() => router.push("/foundations/palette")}
         >
           Palette
         </NavItem>
         <NavItem
+          key="tokens"
           active={pathname === "/foundations/tokens"}
           onClick={() => router.push("/foundations/tokens")}
         >
           Tokens
         </NavItem>
         <NavItem
+          key="typography"
           active={pathname === "/foundations/typography"}
           onClick={() => router.push("/foundations/typography")}
         >
@@ -208,6 +214,7 @@ export function SideNavigation() {
       </NavList>
 
       <NavLabel
+        key="resources"
         label="Resources"
         glyph={
           <GovernmentBuildingIcon
@@ -217,20 +224,24 @@ export function SideNavigation() {
           />
         }
       />
-      <NavList>
+
+      <NavList key="resources-list">
         <NavItem
+          key="a11y"
           active={pathname === "/resources/accessibility"}
           onClick={() => router.push("/resources/accessibility")}
         >
           Accessibility
         </NavItem>
         <NavItem
+          key="icon-creation"
           active={pathname === "/resources/icon-creation"}
           onClick={() => router.push("/resources/icon-creation")}
         >
           Icon Creation
         </NavItem>
         <NavItem
+          key="refresh-guide"
           active={pathname === "/resources/refresh-guide"}
           onClick={() => router.push("/resources/refresh-guide")}
         >
@@ -239,6 +250,7 @@ export function SideNavigation() {
       </NavList>
 
       <NavLabel
+        key="components label"
         label="Components"
         glyph={
           <AppsIcon
